@@ -5,7 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 
 ReactDom.render(
     // <React.StrictMode>
-    <Router>
+    <Router basename="/admin">
         <App/>
     </Router>
     //</React.StrictMode>
