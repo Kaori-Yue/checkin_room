@@ -123,9 +123,9 @@ function Navbar(prop) {
                 <Link style={{color:"black"}} to="/manage_room" class="navbar-text">จัดการห้องเรียน</Link>
               </li>
               
-              <li class="dropdown-item navbar-text">
+              {/* <li class="dropdown-item navbar-text">
                 <Link style={{color:"black"}} to="/manage_class" class="navbar-text">จัดการรายวิชาเรียน</Link>
-              </li>
+              </li> */}
             </div>
           </li>
         </ul>

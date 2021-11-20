@@ -5,8 +5,9 @@ const env = require('./env.json');
 module.exports = {
     entry: './dashboard/src/index.js',
     output: {
-        path: path.join(__dirname, "/dashboard/dist"),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, "/dashboard/dist"),
+        filename: 'bundle.js',
+		publicPath: "/admin",
     },
     module: {
         rules: [
@@ -38,7 +39,10 @@ module.exports = {
     devServer: {
         host: env.HOST,
         port: 8181,
-        historyApiFallback: true,
+        // historyApiFallback: true,
+		historyApiFallback: {
+			index: '/admin/index.html'
+		}
     },
     plugins: [
         new HtmlWebpackPlugin({
