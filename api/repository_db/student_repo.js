@@ -80,7 +80,17 @@ exports.getAllRoom = function () {
  * @param {number} room_id
  * @param {string} u_id
  */
-exports.checkin = function (room_id, u_id) {
+exports.checkin = async function (room_id, u_id) {
+
+    //เช็คว่า ห้องอื่นมีการ login ไหม
+    let validate_duplicate_checkin_q = `update transaction
+    set timestamp_checkout = CURRENT_TIMESTAMP,status = 0,role = 1
+    where u_id = '${u_id}' and status = 1`
+
+    await to_query(validate_duplicate_checkin_q);
+
+
+    //Checkin
     let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
     select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1 
     from transaction
@@ -99,6 +109,7 @@ and room_table.room_id = ${room_id}
     )
     group by '${u_id}'
     ;`
+
     return to_query(sql);
 }
 
@@ -284,7 +295,7 @@ exports.getClass_room = function (room_id, day) {
  * @param {string} class_name 
  * @param {Array} schedule 
  */
-exports.add_class = function (class_id, class_sect, class_name, term,schedule) {
+exports.add_class = function (class_id, class_sect, class_name, term, schedule) {
     let sql_1 = `insert into class_table (class_id,class_sect,class_name,term)
     values ('${class_id}','${class_sect}','${class_name}','${term}')`
     to_query(sql_1)
@@ -498,7 +509,7 @@ exports.get_term = function () {
 
 
 
-exports.get_timeline = async function (student_id , u_id) {
+exports.get_timeline = async function (student_id, u_id) {
 
     let q_student_info = `select * from student_table where u_id = '${u_id}' `
     let student_info = await to_query(q_student_info)
@@ -522,4 +533,4 @@ exports.get_timeline = async function (student_id , u_id) {
         "timeline": timeline
     })
 
-} 
+}
