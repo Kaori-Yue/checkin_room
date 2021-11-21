@@ -27,6 +27,7 @@ app.use(cors({origin: [
     'http://127.0.0.1',
     'http://127.0.0.1:3000',
     'http://localhost',
+	'http://localhost:8181',
     'https://crossknight.com',
     'https://line.crossknight.com',
     'https://dashboard.crossknight.com',
