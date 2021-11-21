@@ -13,10 +13,10 @@ return (
                     <tr class="d-flex">
                         <th class="col-2" scope="col">ห้อง</th>
                         <th class="col-2" scope="col">รหัสนักศึกษา</th>
-                        <th class="col-3" scope="col">ชื่อนักศึกษา</th>
+                        <th class="col-4" scope="col">ชื่อนักศึกษา</th>
                         <th class="col-2" scope="col">เวลาเข้า</th>
                         <th class="col-2" scope="col">เวลาออก</th>
-                        <th class="col-1" scope="col">โดย</th>
+                        {/* <th class="col-1" scope="col">โดย</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +39,10 @@ return (
                             <tr class="d-flex">
                                 <td scope="row" class="col-2">{room_name}</td>
                                 <td class="col-2">{student_id}</td>
-                                <td style={{ textAlign: "left" }} class="col-3">{student_name}</td>
+                                <td style={{ textAlign: "left" }} class="col-4">{student_name}</td>
                                 <td class="col-2">{change_date_format(timestamp_checkin)}</td>
                                 <td class="col-2" >{timestamp_checkout == null ? null : change_date_format(timestamp_checkout)}</td>
-                                <td class="col-1" >{_role}</td>
+                                {/* <td class="col-1" >{_role}</td> */}
 
                             </tr >
                         )

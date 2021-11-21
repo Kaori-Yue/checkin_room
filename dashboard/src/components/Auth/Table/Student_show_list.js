@@ -63,11 +63,11 @@ function Student_show_list(prop) {
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
                 <td class="col-2">{student_id}</td>
-                <td class="col-4">{student_name}</td>
-                <td class="col-3">{change_date_format(timestamp_checkin)}</td>
-                <td class="col-1">
+                <td class="col-4" stlye={{textAlign:"start"}} >{student_name}</td>
+                <td class="col-4" >{change_date_format(timestamp_checkin)}</td>
+                {/* <td class="col-1">
                     {isReg ? <button disabled={true} title="ลงทะเบียน" type="button" class="btn btn-success"></button> : <button disabled={true} type="button" title="ยังไม่ลงทะเบียน" class="btn btn-secondary"></button>}
-                </td>
+                </td> */}
                 <td class="col-1">
                     <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"+room_select} onClick={()=>{set_kick_form(student_id)}}>
                         Reject
@@ -88,8 +88,8 @@ function Student_show_list(prop) {
                         <th class="col-1" scope="col">#</th>
                         <th class="col-2" scope="col">รหัสนักศึกษา</th>
                         <th class="col-4" scope="col">ชื่อนักศึกษา</th>
-                        <th class="col-3" scope="col">เวลาที่ลงชื่อ</th>
-                        <th class="col-1" scope="col">สถานะ</th>
+                        <th class="col-4" scope="col">เวลาที่ลงชื่อ</th>
+                        {/* <th class="col-1" scope="col">สถานะ</th> */}
                         <th class="col-1" scope="col">จัดการ</th>
                     </tr>
                 </thead>
@@ -103,7 +103,7 @@ function Student_show_list(prop) {
                         <div style={{ backgroundColor: "red" }} class="modal-header">
                             <h5 class="modal-title text-white" id="exampleModalLabel">ยืนยันการบังคับลงชื่อออก</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span> 
                             </button>
                         </div>
                         <div class="modal-body">

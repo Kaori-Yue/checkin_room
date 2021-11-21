@@ -105,10 +105,10 @@ function Navbar(prop) {
               <li class="dropdown-item navbar-text">
                 <Link style={{color:"black"}}to="/table" class="navbar-text">ห้องเรียน</Link>
               </li>
-
+{/* 
               <li class="dropdown-item navbar-text">
                 <Link style={{color:"black"}} to="/table_class" class="navbar-text">รายวิชา</Link>
-              </li>
+              </li> */}
             </div>
           </li>
           <li class="nav-item active">

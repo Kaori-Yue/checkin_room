@@ -73,7 +73,7 @@ function Input_search({
 
 
 
-                <div class="row p-3  rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
+                {/* <div class="row p-3  rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
                     <div class="col-4 pt-1">
                         <b>2. ค้นหาด้วยวิชา</b>
                     </div>
@@ -83,13 +83,13 @@ function Input_search({
                             {class_select_element}
                         </select>
                     </div>
-                </div>
+                </div> */}
 
 
 
                 <div class="row p-3 rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
                     <div class="col-4 pt-1">
-                        <b>3. ค้นหาด้วยเวลา</b>
+                        <b>2. ค้นหาด้วยเวลา</b>
                     </div>
                     <div class="col-4">
                         <label for="start-time">เวลาเริ่มต้น:</label>
@@ -106,7 +106,7 @@ function Input_search({
 
                 <div class="row p-3  rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
                     <div class="col-4 pt-1">
-                        <b>4. ค้นหาด้วยห้อง</b>
+                        <b>3. ค้นหาด้วยห้อง</b>
                     </div>
                     <div class="col-2">
                         <select class="form-control" onChange={handle_room_id}>

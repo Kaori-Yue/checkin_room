@@ -147,20 +147,20 @@ function Table() {
                 })}
             </select>
             <br />
-            <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class} time_now={time_now} />
+            {/* <Class_show_list room_select={room_select} current_class={current_class} set_current_class={set_current_class} time_now={time_now} /> */}
             <br />
             <div class="row">
                 <div class="col-4">
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-success" disabled={true}>
+                    {/* <button class="btn btn-success" disabled={true}>
                     </button>
-                    <small> : ลงทะเบียนในวิชานี้</small>
+                    <small> : ลงทะเบียนในวิชานี้</small> */}
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-secondary" disabled={true}>
+                    {/* <button class="btn btn-secondary" disabled={true}>
                     </button>
-                    <small> : ไม่ได้ลงทะเบียนในวิชานี้</small>
+                    <small> : ไม่ได้ลงทะเบียนในวิชานี้</small> */}
                 </div>
                 <div class="col-1">
                 </div>

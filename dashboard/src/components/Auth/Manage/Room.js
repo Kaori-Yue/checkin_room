@@ -35,7 +35,9 @@ function Room(){
                 <th scope="row" class="col-1">{room_id}</th>
                 <td class="col-6">{room_name}</td>
                 <td class="col-2">{capacity}</td>
-                <td class="col-3"></td>
+                <td class="col-3">
+                    QR-Code
+                </td>
             </tr>
             )
         }
