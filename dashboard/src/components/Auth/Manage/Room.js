@@ -56,7 +56,7 @@ function Room() {
                     <td class="col-6">{room_name}</td>
                     <td class="col-2">{capacity}</td>
                     <td class="col-3">
-                        <a onClick={() => {
+                        <a href="#" onClick={() => {
                             qrcode_gen(room_id)
                         }}>
                             QR-CODE
