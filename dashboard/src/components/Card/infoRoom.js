@@ -6,24 +6,29 @@ import axios from 'axios'
 import env from '../../../../env.json'
 import Loading from '../Loading'
 import { withRouter } from 'react-router-dom'
-
+import { withCookies } from "react-cookie";
+import jwt from 'jsonwebtoken'
 
 
 class infoRoom extends Component {
 	constructor(props) {
 		super(props)
 
+		const { allCookies } = props
 		this.state = {
-			isLoading: true
+			isLoading: true,
+			role: jwt.decode(allCookies.jwt)?.role
 		}
 		this.reload
 
 		// Binding
 		this.onClickElement = this.onClickElement.bind(this)
+
 	}
 
 	componentDidMount() {
 		this.update()
+		console.log(this.props)
 	}
 
 	componentWillUnmount() {
@@ -35,7 +40,7 @@ class infoRoom extends Component {
 		/** @type {import('axios').AxiosResponse<getRoom_in[]>} */
 		const dataRoom = await axios({
 			method: 'GET',
-			url: env.API + '/getroom_in?faculty_id=0'
+			url: env.API + '/getroom_in?faculty_id=' + this.state.role
 		})
 
 
@@ -107,4 +112,5 @@ class infoRoom extends Component {
 	}
 }
 
-export default withRouter(infoRoom)
+export default withCookies(withRouter(infoRoom))
+// export default withRouter(infoRoom)
