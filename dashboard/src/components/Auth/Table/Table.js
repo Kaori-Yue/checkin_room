@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 import env from "../../../../../env.json";
 import Student_show_list from './Student_show_list'
 import Class_show_list from "./Class_show_list";
-
-
+import jwt from 'jsonwebtoken'
+import { useCookies } from "react-cookie";
 
 
 
@@ -78,7 +78,7 @@ function Table() {
     },[room_select])
 
 
-
+    const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
 
     useEffect(() => {
@@ -92,8 +92,9 @@ function Table() {
 
         }, env.TIME_REFRESH)
 
+        let admin_role = jwt.decode(cookie.jwt).role;
 
-        Axios.get(env.API + '/getroom')
+        Axios.get(env.API + '/getroom?faculty_id='+admin_role)
             .then(res => {
                 setRoom_list(res.data)
                 setRoom_Select(query.get('room_id')?parseInt(query.get('room_id')):0)

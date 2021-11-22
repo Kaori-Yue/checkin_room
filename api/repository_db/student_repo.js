@@ -317,8 +317,12 @@ exports.add_class = function (class_id, class_sect, class_name, term, schedule) 
 }
 
 
-exports.getroom_in = function () {
-    let sql = `select room_table.room_id as room_id,
+exports.getroom_in = function (faculty_id) {
+
+    let sql = ''
+
+    if (faculty_id == 0)
+        sql = `select room_table.room_id as room_id,
     room_table.room_name as room_name,
     room_table.capacity as capacity,
     count(*) as count
@@ -328,6 +332,22 @@ exports.getroom_in = function () {
     where room_table.room_id = transaction.room_id
     and transaction.status = 1
     group by room_table.room_id`;
+
+    else {
+        sql = `select room_table.room_id as room_id,
+    room_table.room_name as room_name,
+    room_table.capacity as capacity,
+    count(*) as count
+    
+    
+    from  room_table,transaction
+    where room_table.room_id = transaction.room_id
+    and transaction.status = 1
+    and faculty_id = ${faculty_id}
+    group by room_table.room_id`;
+    }
+
+
     return to_query(sql);
 }
 

@@ -25,7 +25,7 @@ function Input_search({
 
         Axios.get(env.API + '/getroom?faculty_id='+admin_role)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setRoom_list(res.data)
             }).catch(err => {
                 console.log(err)

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import env from "./../../../../../env.json";
 import QRCode from 'qrcode'
+import { useCookies } from "react-cookie";
+import jwt from 'jsonwebtoken'
+
 
 const qrcode_gen = async function (room_id) {
 	// console.log('here');
@@ -31,11 +34,14 @@ function Room() {
 
 	const [room_list, setRoom_list] = useState([]);
 	const [keyword, setKeyword] = useState('');
-
+	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
 
 	useEffect(() => {
-		Axios.get(env.API + '/getroom')
+
+		let admin_role = jwt.decode(cookie.jwt).role;
+
+		Axios.get(env.API + '/getroom?faculty_id=' + admin_role)
 			.then(res => {
 				setRoom_list(res.data);
 			})

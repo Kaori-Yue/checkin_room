@@ -31,11 +31,11 @@ class infoRoom extends Component {
 	}
 
 	async update(params) {
-
+		// TODO 
 		/** @type {import('axios').AxiosResponse<getRoom_in[]>} */
 		const dataRoom = await axios({
 			method: 'GET',
-			url: env.API + '/getroom_in'
+			url: env.API + '/getroom_in?faculty_id=0'
 		})
 
 
