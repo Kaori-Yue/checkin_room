@@ -561,3 +561,14 @@ exports.get_timeline = async function (student_id, u_id) {
     })
 
 }
+
+
+
+exports.get_faculty = function () {
+
+    let sql = `select * from faculty_table;`
+
+    return to_query(sql);
+
+
+}
