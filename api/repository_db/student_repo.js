@@ -65,14 +65,21 @@ exports.removeStd = function (student_id) {
  * @param {string} room_name Name of room which regis
  * @param {number} capacity Maximum for room  
  */
-exports.register_room = function (room_name, capacity) {
-    let sql = `insert into room_table(room_name,capacity)
-    values ('${room_name}',${capacity});`
+exports.register_room = function (room_name, capacity, faculty_id) {
+    let sql = `insert into room_table(room_name,capacity , faculty_id)
+    values ('${room_name}',${capacity} , ${faculty_id} );`
     return to_query(sql);
 }
 
-exports.getAllRoom = function () {
-    let sql = `select * from room_table;`
+exports.getAllRoom = function (faculty_id) {
+    let sql = ''
+
+    //power admin
+    if (faculty_id == 0)
+        sql = `select * from room_table;`
+    else
+        sql = `select * from room_table where faculty_id = ${faculty_id};`
+
     return to_query(sql);
 }
 

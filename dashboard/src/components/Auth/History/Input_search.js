@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import env from './../../../../../env.json'
 import Axios from 'axios'
-
+import { useCookies } from "react-cookie";
+import jwt from 'jsonwebtoken'
 
 function Input_search({
     handle_student_id,
@@ -16,11 +17,15 @@ function Input_search({
 
     const [room_list, setRoom_list] = useState([])
     const [class_list, setClass_list] = useState([])
-
+    const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
     useEffect(() => {
-        Axios.get(env.API + '/getroom')
+     
+        let admin_role = jwt.decode(cookie.jwt).role;
+
+        Axios.get(env.API + '/getroom?faculty_id='+admin_role)
             .then(res => {
+                console.log(res.data);
                 setRoom_list(res.data)
             }).catch(err => {
                 console.log(err)
@@ -47,7 +52,7 @@ function Input_search({
         const { class_id, class_sect, class_name } = e
 
         return (
-            <option value={class_id + "-" + class_sect}>{class_id+"-"+class_sect+" "+class_name}</option>
+            <option value={class_id + "-" + class_sect}>{class_id + "-" + class_sect + " " + class_name}</option>
         )
 
     })
