@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { useCookies } from "react-cookie";
 import Navbar from './components/Navbar'
 import {
@@ -16,6 +16,11 @@ import Table_class from './components/Auth/Table/Table_class';
 import Register from './components/Register'
 import Class_student from "./components/Auth/Manage/Class/Class_student";
 
+import { FacultyContext, FacultyProvider } from './store/FacultyContext'
+import ContextProvider from './store/providerComposer'
+import AddRoom from './components/Auth/Manage/AddRoom'
+import { UserInfoContext } from './store/UserInfoContext'
+import jwt from 'jsonwebtoken'
 
 function App() {
 
@@ -42,11 +47,22 @@ function App() {
 	}
 
 	//Autherication
+	const [userInfo, setUserInfo] = useContext(UserInfoContext)
+
+
+	useEffect(() => {
+		const decode = jwt.decode(cookie.jwt)
+		setUserInfo(decode)
+	}, [cookie])
 
 	const checkLogin = () => {
 		if (isToken()) {
+
+
+
 			return (
 				<React.Fragment>
+
 					<Navbar
 						setToken={setToken}
 						token={cookie.jwt}
@@ -75,6 +91,12 @@ function App() {
 						<Route exact path="/class_student">
 							<Class_student />
 						</Route>
+
+						<Route exact path="/manage_room/add_room">
+							<AddRoom />
+						</Route>
+
+
 					</div>
 				</React.Fragment>
 			)
@@ -133,9 +155,9 @@ export default App;
 //hour = [1,2,3,4,5,6,7]
 
 /*
-    1 = 8.30-9.20
-    2 = 9.25 - 10.40
-    3 = 10.50 - 12.05
+	1 = 8.30-9.20
+	2 = 9.25 - 10.40
+	3 = 10.50 - 12.05
 */
 
 
@@ -159,7 +181,7 @@ Regis_Class_Tran
 -student_id
 
 send_checkin(room_id){
-    Date=>{Day,hour} -->Class Table --> Checkin
+	Date=>{Day,hour} -->Class Table --> Checkin
 
 }
 

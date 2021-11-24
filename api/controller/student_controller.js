@@ -47,11 +47,15 @@ exports.regis_room = async (req, res) => {
 
     try {
         let data = await std_repo.register_room(room_name, capacity, faculty_id);
-        res.sendStatus(200)
+        res.send({
+            "success": true
+        })
     }
     catch (ex) {
         console.log(ex)
-        res.sendStatus(404)
+        res.send({
+            "success": false
+        })
     }
 }
 
