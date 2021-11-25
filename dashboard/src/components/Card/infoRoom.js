@@ -48,7 +48,7 @@ class infoRoom extends Component {
 		const labels = []
 		// [0] use | [1] space
 		const datasets = [{
-			label: 'use slot',
+			label: 'used slot',
 			backgroundColor: 'rgba(8, 173, 0, 0.2)',
 			borderColor: 'rgba(8, 173, 0, 1)',
 			borderWidth: 1,

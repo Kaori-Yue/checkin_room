@@ -5,23 +5,10 @@ const env = require('./env.json');
 module.exports = {
     entry: './dashboard/src/index.js',
     output: {
-        path: path.join(__dirname, "/dashboard/dist"),
+        path: path.resolve(__dirname, "/dashboard/dist"),
         filename: 'bundle.js',
-	publicPath: "/admin",
-
-	chunkFilename: '[name].chunk.js',
-
+		publicPath: "/admin",
     },
-
-	optimization: {
-		splitChunks: {
-        		chunks: 'all',
-        		name: false,
-      		},
-	},
-
-
-
     module: {
         rules: [
             {

@@ -49,7 +49,7 @@ function AddRoom() {
 		if (admin === true)
 			return (
 				<>
-					<option selected value="" disabled>เลือกคณะ...</option>
+					<option selected value="" disabled>เลือกหน่วยงาน...</option>
 					{
 						faculty.map(fac => {
 							return (<option key={fac.faculty_id} value={fac.faculty_id}>{fac.faculty_name}</option>)
@@ -76,22 +76,22 @@ function AddRoom() {
 				<div className="col-8 mt-3 mx-auto">
 					<div className="">
 						<form className={"card-body" + (formValidate ? " was-validated" : "")} onSubmit={handleSubmit} noValidate>
-							<h3 className="text-center mb-3">เพิ่มห้อง</h3>
+							<h3 className="text-center mb-3">เพิ่มจุด SU check-in</h3>
 
 							<div className="form-group">
-								<label for="faculty_id">คณะ</label>
+								<label for="faculty_id">หน่วยงาน</label>
 								<select type="text" className="custom-select" name="faculty_id" required autofocus>
 									{
 										userInfo?.role === 0 ? isPowerAdmin(true) : isPowerAdmin(false)
 									}
 								</select>
 								<div className="invalid-feedback">
-									กรุณาเลือกคณะ
+									กรุณาหน่วยงาน
 								</div>
 							</div>
 
 							<div className="form-group">
-								<label for="room_name">ชื่อห้อง</label>
+								<label for="room_name">ชื่อจุด SU check-in</label>
 								<input type="text" className="form-control" name="room_name" required
 									// pattern="^[\w]{3,}$"
 									pattern=".{3,}"

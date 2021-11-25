@@ -66,13 +66,13 @@ function Input_search({
             <div class="shadow rounded">
                 <div class="row p-3 rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
                     <div class="col-4 pt-1">
-                        <b>1. ค้นหาด้วยนักศึกษา</b>
+                        <b>1. ค้นหาด้วยข้อมูลบุคคล</b>
                     </div>
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="ใส่รหัสนักศึกษา" onChange={handle_student_id} />
-                    </div>
-                    <div class="col-6">
-                        <input type="text" class="form-control" placeholder="ใส่ชื่อนักศึกษา" onChange={handle_student_name} />
+                    {/* <div class="col-2">
+                        <input type="text" class="form-control" placeholder="ใส่รหัสนักประจำตัว" onChange={handle_student_id} />
+                    </div> */}
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="ใส่ชื่อ-สกุลของบุคคล" onChange={handle_student_name} />
                     </div>
                 </div>
 
@@ -111,11 +111,11 @@ function Input_search({
 
                 <div class="row p-3  rounded " data-toggle="collapse" style={{ backgroundColor: "#ededeb" }} >
                     <div class="col-4 pt-1">
-                        <b>3. ค้นหาด้วยห้อง</b>
+                        <b>3. ค้นหาด้วยจุด SU check-in</b>
                     </div>
-                    <div class="col-2">
+                    <div class="col">
                         <select class="form-control" onChange={handle_room_id}>
-                            <option value="">--กรุณาเลือกห้อง--</option>
+                            <option value="">--กรุณาเลือกจุด SU check-in--</option>
                             {room_select_element}
                         </select>
                     </div>

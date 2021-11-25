@@ -15,7 +15,7 @@ function Home(prop) {
                 textAlign: "center",
 
             }}>
-                <h2>ยินดีต้อนรับเข้าสู่ระบบบันทึกการใช้งานห้องเรียน</h2>
+                <h2>ยินดีต้อนรับเข้าสู่ระบบ SU check-in</h2>
                 <h4>ท่านยังไม่ได้เข้าสู่ระบบกรุณาเข้าสู่ระบบก่อน</h4>
                 {/* <Link to="/register">Register Here</Link> */}
             </div>
@@ -29,7 +29,7 @@ function Home(prop) {
             textAlign: "center",
 
         }}>
-            <h2>ยินดีต้อนรับเข้าสู่ระบบบันทึกการใช้งานห้องเรียน</h2>
+            <h2>ยินดีต้อนรับเข้าสู่ระบบ SU check-in</h2>
             <h4>ท่านเข้าสู่ระบบเรียบร้อยแล้ว</h4>
             <div className="row">
                 <div className="col">

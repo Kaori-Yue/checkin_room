@@ -11,9 +11,9 @@ return (
             <table class="table table-striped">
                 <thead>
                     <tr class="d-flex">
-                        <th class="col-2" scope="col">ห้อง</th>
-                        <th class="col-2" scope="col">รหัสนักศึกษา</th>
-                        <th class="col-4" scope="col">ชื่อนักศึกษา</th>
+                        <th class="col-4" scope="col">จุด SU check-in</th>
+                        {/* <th class="col-2" scope="col">รหัสนักศึกษา</th> */}
+                        <th class="col-4 text-left" scope="col">ชื่อ-นามสกุล</th>
                         <th class="col-2" scope="col">เวลาเข้า</th>
                         <th class="col-2" scope="col">เวลาออก</th>
                         {/* <th class="col-1" scope="col">โดย</th> */}
@@ -37,8 +37,8 @@ return (
 
                         return (
                             <tr class="d-flex">
-                                <td scope="row" class="col-2">{room_name}</td>
-                                <td class="col-2">{student_id}</td>
+                                <td scope="row" class="col-4">{room_name}</td>
+                                {/* <td class="col-2">{student_id}</td> */}
                                 <td style={{ textAlign: "left" }} class="col-4">{student_name}</td>
                                 <td class="col-2">{change_date_format(timestamp_checkin)}</td>
                                 <td class="col-2" >{timestamp_checkout == null ? null : change_date_format(timestamp_checkout)}</td>

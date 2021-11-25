@@ -101,7 +101,7 @@ function Navbar(prop) {
 						</a>
 						<div style={{ backgroundColor: "white" }} class="dropdown-menu " aria-labelledby="navbarDropdown">
 							<li class="dropdown-item navbar-text">
-								<Link style={{ color: "black" }} to="/table" class="navbar-text">ห้องเรียน</Link>
+								<Link style={{ color: "black" }} to="/table" class="navbar-text">จุด SU check-in</Link>
 							</li>
 							{/* 
               <li class="dropdown-item navbar-text">
@@ -118,7 +118,7 @@ function Navbar(prop) {
 						</a>
 						<div style={{ backgroundColor: "white" }} class="dropdown-menu " aria-labelledby="navbarDropdown">
 							<li class="dropdown-item navbar-text">
-								<Link style={{ color: "black" }} to="/manage_room" class="navbar-text">จัดการห้องเรียน</Link>
+								<Link style={{ color: "black" }} to="/manage_room" class="navbar-text">จัดการจุด SU check-in</Link>
 							</li>
 
 							{/* <li class="dropdown-item navbar-text">
@@ -126,7 +126,7 @@ function Navbar(prop) {
               </li> */}
 
 							<li className="dropdown-item navbar-text">
-								<Link to="/manage_room/add_room" className="navbar-text text-dark">เพิ่มห้อง</Link>
+								<Link to="/manage_room/add_room" className="navbar-text text-dark">เพิ่มจุด SU check-in</Link>
 							</li>
 						</div>
 					</li>

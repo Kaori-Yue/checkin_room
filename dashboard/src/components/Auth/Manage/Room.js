@@ -112,14 +112,14 @@ function Room() {
 	return (
 		<div>
 			<br />
-			<h2 style={{ textAlign: "center" }}>จัดการรายชื่อห้องเรียน</h2>
+			<h2 style={{ textAlign: "center" }}>จัดการจุด SU check-in</h2>
 			<br />
 			
 			<div class="input-group mb-3 col-9 mx-auto">
 				<input
 					className="form-control text-center"
 					type="text"
-					placeholder="ค้นหาห้องที่นี่"
+					placeholder="ค้นหาจุด SU check-in"
 					value={keyword}
 					onChange={handleKeyword}
 				/>
@@ -139,8 +139,8 @@ function Room() {
 									admin_role === 0 ?
 										<>
 											<th class="col-1" scope="col">ID</th>
-											<th class="col-3" scope="col">คณะ</th>
-											<th class="col-5" scope="col">ชื่อห้อง</th>
+											<th class="col-3" scope="col">หน่วยงาน</th>
+											<th class="col-5" scope="col">ชื่อจุด SU check-in</th>
 											<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
 											<th class="col-1" scope="col">จัดการ</th>
 										</>
