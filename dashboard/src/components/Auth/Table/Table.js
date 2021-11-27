@@ -137,10 +137,10 @@ function Table() {
     return (
         <div class="container">
             <br />
-            <h2 style={{ textAlign: "center" }}>บันทึกการใช้งานสถานที่</h2>
+            <h2 style={{ textAlign: "center" }}>บันทึกการใช้งาน SU Check-in</h2>
             <br />
             <select style={{ width: "50%", margin: "auto", textAlign: "center" }} class="form-control" id="room_select" value={room_select}onChange={handleSelect}>
-                <option value={0} >--กรุณาเลือกห้อง--</option>
+                <option value={0} >-- กรุณาเลือกจุด SU Check-in --</option>
                 {room_list && room_list.map(room => {
                     return (
                         <option value={room.room_id} key={room.room_id}>{room.room_name}</option>

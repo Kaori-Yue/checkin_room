@@ -21,6 +21,7 @@ import ContextProvider from './store/providerComposer'
 import AddRoom from './components/Auth/Manage/AddRoom'
 import { UserInfoContext } from './store/UserInfoContext'
 import jwt from 'jsonwebtoken'
+import QRcode from './components/QRcode'
 
 function App() {
 
@@ -94,6 +95,10 @@ function App() {
 
 						<Route exact path="/manage_room/add_room">
 							<AddRoom />
+						</Route>
+
+						<Route exact path="/qrcode/:id">
+							<QRcode />
 						</Route>
 
 

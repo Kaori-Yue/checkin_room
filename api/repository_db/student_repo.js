@@ -98,8 +98,7 @@ exports.checkin = async function (room_id, u_id) {
 
 
     //Checkin
-    let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status)
-    select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1 
+    let sql = `insert into transaction (room_id,u_id,timestamp_checkin,status) select ${room_id},'${u_id}',CURRENT_TIMESTAMP,1 
     from transaction
     where not exists(
         select * from transaction 
@@ -221,9 +220,9 @@ exports.login = function (username, hash_password) {
  * @param {string} name 
  * @param {string} about 
  */
-exports.register = function (username, hash_password, name, about) {
+exports.register = function (username, hash_password, name, role, about) {
     let sql = `insert into admin (username,hash_password,name,role,about)
-    values ('${username}','${hash_password}','${name}',1,'${about}');`
+    values ('${username}','${hash_password}','${name}',${role},'${about}');`
     return to_query(sql);
 }
 

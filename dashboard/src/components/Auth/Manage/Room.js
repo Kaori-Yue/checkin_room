@@ -76,11 +76,14 @@ function Room() {
 								<td class="col-5">{room_name}</td>
 								<td class="col-2">{capacity}</td>
 								<td class="col-1">
-									<a href="#" onClick={() => {
+									{/* <a href="#" onClick={() => {
 										qrcode_gen(room_id)
 									}}>
 										QR-CODE
-									</a>
+									</a> */}
+									<Link to={"/qrcode/" + room_id}>
+										QR-CODE
+									</Link>
 								</td>
 							</>
 							:
@@ -89,11 +92,9 @@ function Room() {
 								<td class="col-6">{room_name}</td>
 								<td class="col-2">{capacity}</td>
 								<td class="col-3">
-									<a href="#" onClick={() => {
-										qrcode_gen(room_id)
-									}}>
-										QR-CODE
-									</a>
+									<Link to={"/qrcode/" + room_id}>
+                                                                                QR-CODE
+                                                                        </Link>
 								</td>
 							</>
 					}
@@ -114,7 +115,7 @@ function Room() {
 			<br />
 			<h2 style={{ textAlign: "center" }}>จัดการจุด SU check-in</h2>
 			<br />
-			
+
 			<div class="input-group mb-3 col-9 mx-auto">
 				<input
 					className="form-control text-center"
@@ -127,39 +128,39 @@ function Room() {
 					<button type="button" className="btn btn-primary ml-2">เพิ่มห้อง</button>
 				</Link> */}
 			</div>
-			
+
 			<br />
 			{/* <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive"> */}
-			
-				<div class="table-responsive col-9 mx-auto">
-					<table class="table">
-						<thead>
-							<tr class="d-flex">
-								{
-									admin_role === 0 ?
-										<>
-											<th class="col-1" scope="col">ID</th>
-											<th class="col-3" scope="col">หน่วยงาน</th>
-											<th class="col-5" scope="col">ชื่อจุด SU check-in</th>
-											<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
-											<th class="col-1" scope="col">จัดการ</th>
-										</>
-										:
-										<>
-											<th class="col-1" scope="col">ID</th>
-											<th class="col-6" scope="col">ชื่อห้อง</th>
-											<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
-											<th class="col-3" scope="col">จัดการ</th>
-										</>
 
-								}
-							</tr>
-						</thead>
-						<tbody>
-							{show_room_list}
-						</tbody>
-					</table>
-				
+			<div class="table-responsive col-9 mx-auto">
+				<table class="table">
+					<thead>
+						<tr class="d-flex">
+							{
+								admin_role === 0 ?
+									<>
+										<th class="col-1" scope="col">ID</th>
+										<th class="col-3" scope="col">หน่วยงาน</th>
+										<th class="col-5" scope="col">ชื่อจุด SU check-in</th>
+										<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
+										<th class="col-1" scope="col">จัดการ</th>
+									</>
+									:
+									<>
+										<th class="col-1" scope="col">ID</th>
+										<th class="col-6" scope="col">ชื่อห้อง</th>
+										<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
+										<th class="col-3" scope="col">จัดการ</th>
+									</>
+
+							}
+						</tr>
+					</thead>
+					<tbody>
+						{show_room_list}
+					</tbody>
+				</table>
+
 			</div>
 
 		</div>

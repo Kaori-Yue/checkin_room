@@ -29,4 +29,4 @@ webpack.config.js
 
 # Build
 /dashboard/dist
-
+api.http

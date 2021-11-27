@@ -12,6 +12,8 @@ const login_controller = require('./controller/login_controller');
 const class_controller = require('./controller/class_controller')
 const profile_controller = require('./controller/profile_controller')
 const faculty_controller = require('./controller/faculty_controller');
+const suAccount_controller = require('./controller/suAccount_controller')
+const guestAccount_controller = require('./controller/guestAccount_controller')
 const line_middle_ware = require('./line_authen');
 const helper = require('./helper');
 
@@ -88,6 +90,9 @@ authenRoute.post('/removestd', std_controller.removestd);
 authenRoute.post('/getInfo', checkin_controller.getInfo);
 authenRoute.post('/hasAccount', std_controller.hasAccount);
 authenRoute.post('/get_timeline', profile_controller.get_timeline)
+
+authenRoute.post('/register/su', suAccount_controller.register)
+authenRoute.post('/register/guest', guestAccount_controller.register)
 
 helper.watcher_auto_reject();
 

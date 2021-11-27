@@ -62,13 +62,13 @@ function Student_show_list(prop) {
         return (
             <tr class="d-flex">
                 <th scope="row" class="col-1">{i + 1}</th>
-                <td class="col-2">{student_id}</td>
-                <td class="col-4" stlye={{textAlign:"start"}} >{student_name}</td>
+                {/* <td class="col-2">{student_id}</td> */}
+                <td class="col-5" stlye={{textAlign:"start"}} >{student_name}</td>
                 <td class="col-4" >{change_date_format(timestamp_checkin)}</td>
                 {/* <td class="col-1">
                     {isReg ? <button disabled={true} title="ลงทะเบียน" type="button" class="btn btn-success"></button> : <button disabled={true} type="button" title="ยังไม่ลงทะเบียน" class="btn btn-secondary"></button>}
                 </td> */}
-                <td class="col-1">
+                <td class="col-2">
                     <a role="button"  href="#" data-toggle="modal" data-target={"#std-modal"+room_select} onClick={()=>{set_kick_form(student_id)}}>
                         Reject
                         </a>
@@ -86,11 +86,11 @@ function Student_show_list(prop) {
                 <thead>
                     <tr class="d-flex">
                         <th class="col-1" scope="col">#</th>
-                        <th class="col-2" scope="col">รหัสนักศึกษา</th>
-                        <th class="col-4" scope="col">ชื่อนักศึกษา</th>
+                        {/* <th class="col-2" scope="col">รหัสนักศึกษา</th> */}
+                        <th class="col-5" scope="col">ชื่อ-นามสกุล</th>
                         <th class="col-4" scope="col">เวลาที่ลงชื่อ</th>
                         {/* <th class="col-1" scope="col">สถานะ</th> */}
-                        <th class="col-1" scope="col">จัดการ</th>
+                        <th class="col-2" scope="col">จัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
