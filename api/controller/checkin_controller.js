@@ -181,8 +181,9 @@ exports.get_history = async (req, res) => {
     let end_time = req.body.end_time;
     let room_id = req.body.room_id;
     let page = req.body.page;
+	let role_id = req.body.role_id
     try {
-        let data = await std_repo.get_history(student_id, student_name, class_id, class_sect, start_time, end_time, room_id, page);
+        let data = await std_repo.get_history(student_id, student_name, class_id, class_sect, start_time, end_time, room_id, page, role_id);
         res.send(data)
     }
     catch (ex) {

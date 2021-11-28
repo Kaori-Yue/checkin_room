@@ -38,25 +38,6 @@ exports.register = async (req, res) => {
 		// 	}
 		// })
 
-		const reqStd = await axios("https://eassess.su.ac.th/web1/WebService/api_checkin_std_getdata.php?u=" + email, {
-			auth: {
-				username: env.API_USERNAME,
-				password: env.API_PASSWORD
-			}
-		})
-
-		const dataStd = reqStd.data.pop()
-		if (dataStd.STDSTATUS === "1") {
-			// Then Std
-			console.log("STD")
-			const fullname = dataStd.STUDENTNAME + " " + dataStd.STUDENTSURNAME
-			register_std(u_id, dataStd.STUDENTCODE, fullname)
-
-			res.send({
-				"success": true
-			})
-			return
-		}
 
 		// 
 		// 
@@ -81,6 +62,29 @@ exports.register = async (req, res) => {
 			})
 			return
 		}
+
+		// 
+
+		const reqStd = await axios("https://eassess.su.ac.th/web1/WebService/api_checkin_std_getdata.php?u=" + email, {
+			auth: {
+				username: env.API_USERNAME,
+				password: env.API_PASSWORD
+			}
+		})
+
+		const dataStd = reqStd.data.pop()
+		if (dataStd.STDSTATUS === "1") {
+			// Then Std
+			console.log("STD")
+			const fullname = dataStd.STUDENTNAME + " " + dataStd.STUDENTSURNAME
+			register_std(u_id, dataStd.STUDENTCODE, fullname)
+
+			res.send({
+				"success": true
+			})
+			return
+		}
+		
 
 		console.log("NOT STD && NOT STAFF")
 		res.send({
