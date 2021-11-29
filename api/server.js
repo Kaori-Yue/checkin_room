@@ -94,7 +94,7 @@ authenRoute.post('/get_timeline', profile_controller.get_timeline)
 authenRoute.post('/register/su', suAccount_controller.register)
 authenRoute.post('/register/guest', guestAccount_controller.register)
 
-helper.watcher_auto_reject();
+// helper.watcher_auto_reject();
 
 if (env.DEV) {
     app.listen(env.PORT, '127.0.0.1', () => { console.log('openned on production port:' + env.PORT) })
