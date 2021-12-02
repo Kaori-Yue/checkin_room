@@ -1,6 +1,6 @@
 const std_repo = require('./../../api/repository_db/student_repo');
 const jwt = require('jsonwebtoken');
-const env = require('./../../env.json')
+const env = require('./../../backend.json')
 const crypto = require('crypto');
 
 

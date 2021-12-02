@@ -5,7 +5,9 @@ import QRCode from 'qrcode'
 import { useCookies } from "react-cookie";
 import jwt from 'jsonwebtoken'
 import { FacultyContext } from '../../../store/FacultyContext'
-import { useRouteMatch, Link } from 'react-router-dom'
+import { useRouteMatch, Link, useLocation, useHistory } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQrcode, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 
 const qrcode_gen = async function (room_id) {
@@ -40,6 +42,8 @@ function Room() {
 	const [keyword, setKeyword] = useState('');
 	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
+	const { state } = useLocation()
+
 	const admin_role = jwt.decode(cookie.jwt).role;
 	useEffect(() => {
 		// cache
@@ -62,39 +66,63 @@ function Room() {
 		setKeyword(event.target.value);
 	}
 
-	const show_room_list = room_list && room_list.map(room => {
-		const { room_id, room_name, capacity, faculty_id } = room
+	const show_room_list = room_list && room_list.filter(f => f.deleted == false).map(room => {
+		const { room_id, room_name, capacity, faculty_id, deleted } = room
 		if (keyword == '' || room_name.indexOf(keyword) != -1) {
 			return (
-				<tr class="d-flex">
+				<tr className="">
 					{
 						// power admin
 						admin_role === 0 ?
 							<>
-								<th scope="row" class="col-1">{room_id}</th>
-								<td class="col-3">{faculty.find(fac => fac.faculty_id == faculty_id)?.faculty_name ?? "N/A"}</td>
-								<td class="col-5">{room_name}</td>
-								<td class="col-2">{capacity}</td>
-								<td class="col-1">
+								<td scope="row" className="col-1">{room_id}</td>
+								<td className="col-3">{faculty.find(fac => fac.faculty_id == faculty_id)?.faculty_name ?? "N/A"}</td>
+								<td className="col-4">{room_name}</td>
+								<td className="col-2">{capacity}</td>
+								<td className="col-2">
 									{/* <a href="#" onClick={() => {
 										qrcode_gen(room_id)
 									}}>
 										QR-CODE
 									</a> */}
-									<Link to={"/qrcode/" + room_id}>
-										QR-CODE
+									<Link to={"/qrcode/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faQrcode} color='black' title="QR Code" />
 									</Link>
+
+									<Link to={"/manage_room/edit/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faEdit} title="Edit" />
+									</Link>
+
+									<Link to={"/manage_room/delete/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faTrash} color='red' title="Delete" />
+									</Link>
+
+
+									{/* Rename */}
 								</td>
 							</>
 							:
 							<>
-								<th scope="row" class="col-1">{room_id}</th>
-								<td class="col-6">{room_name}</td>
-								<td class="col-2">{capacity}</td>
-								<td class="col-3">
-									<Link to={"/qrcode/" + room_id}>
-                                                                                QR-CODE
-                                                                        </Link>
+								<td scope="row" className="col-1">{room_id}</td>
+								<td className="col-6">{room_name}</td>
+								<td className="col-2">{capacity}</td>
+								<td className="col-3">
+									{/* <Link to={"/qrcode/" + room_id}>
+										QR-CODE
+									</Link> */}
+
+									<Link to={"/qrcode/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faQrcode} title="QR Code" />
+									</Link>
+
+									<Link to={"/manage_room/edit/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faEdit} title="Edit" />
+									</Link>
+
+									<Link to={"/manage_room/delete/" + room_id} className="mr-3">
+										<FontAwesomeIcon icon={faTrash} title="Delete" />
+									</Link>
+
 								</td>
 							</>
 					}
@@ -106,9 +134,17 @@ function Room() {
 
 
 
+	console.log("state addroom:", JSON.stringify(state))
 
+	const fakeStatus = () => {
+		history.push("/manage_room", {
+			addRoom: {
+				success: true,
+				text: "success"
+			}
+		})
+	}
 
-	const { path } = useRouteMatch()
 
 	return (
 		<div>
@@ -124,26 +160,44 @@ function Room() {
 					value={keyword}
 					onChange={handleKeyword}
 				/>
-				{/* <Link to={`${path}/add_room`}>
-					<button type="button" className="btn btn-primary ml-2">เพิ่มห้อง</button>
-				</Link> */}
+
 			</div>
+
+			{
+				state?.addRoom &&
+				(
+					state?.addRoom.success
+						? <div className="col-9 mx-auto text-center">
+							<div class="alert alert-success alert-block">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>{state?.addRoom.text}</strong>
+							</div>
+						</div>
+						: <div className="col-9 mx-auto text-center">
+							<div class="alert alert-danger alert-block">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>{state?.addRoom.text}</strong>
+							</div>
+						</div>
+				)
+			}
+
 
 			<br />
 			{/* <div style={{ width: "80%", margin: "auto", textAlign: "center" }} class="table-responsive"> */}
 
-			<div class="table-responsive col-9 mx-auto">
+			<div class="table-responsive col-9 mx-auto table-striped">
 				<table class="table">
 					<thead>
-						<tr class="d-flex">
+						<tr className="">
 							{
 								admin_role === 0 ?
 									<>
 										<th class="col-1" scope="col">ID</th>
 										<th class="col-3" scope="col">หน่วยงาน</th>
-										<th class="col-5" scope="col">ชื่อจุด SU check-in</th>
+										<th class="col-4" scope="col">ชื่อจุด SU check-in</th>
 										<th class="col-2" scope="col">จำนวนคนที่กำหนด</th>
-										<th class="col-1" scope="col">จัดการ</th>
+										<th class="col-2" scope="col">จัดการ</th>
 									</>
 									:
 									<>

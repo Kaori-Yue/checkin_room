@@ -80,6 +80,11 @@ app.post('/change_class_name', class_controller.change_class_name);
 app.post('/auto_reject_all', checkin_controller.auto_reject_all);
 app.post('/get_term', class_controller.get_term);
 app.get('/get_faculty', faculty_controller.get_faculty);
+
+app.get('/get_roominfo', std_controller.getRoomInfo);
+app.post('/editRoom', std_controller.setRoomInfo)
+app.post('/deleteRoom', std_controller.setRoomDelete)
+
 authenRoute.post('/get_profile', std_controller.get_profile);
 authenRoute.get('/count_room', checkin_controller.count_room);
 authenRoute.post('/rename_student', std_controller.rename_student);

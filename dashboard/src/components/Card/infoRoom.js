@@ -107,7 +107,9 @@ class infoRoom extends Component {
 
 		return (
 			// options={{ onClick:(e, i)=> {console.log('c ',i)} }}
-			<HorizontalBar data={this.state} getElementAtEvent={this.onClickElement} />
+			// <div className="col">
+				<HorizontalBar  data={this.state} getElementAtEvent={this.onClickElement} />
+			// {/* </div> */}
 		)
 	}
 }

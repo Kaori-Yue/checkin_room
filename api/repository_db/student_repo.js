@@ -1,11 +1,11 @@
 const mariadb = require('mariadb');
-const env = require('./../../env.json')
+const env = require('./../../backend.json')
 const helper = require('../../api/helper');
 const { get_term } = require('../controller/class_controller');
 
 
 var pool = mariadb.createPool({
-	host: 'localhost',
+	host: env.HOST_DB,
 	user: env.USERNAME_DB,
 	password: env.PASSWORD_DB,
 	database: env.DATABASE,
@@ -589,4 +589,23 @@ exports.get_faculty = function () {
 	return to_query(sql);
 
 
+}
+
+exports.get_roomInfo = function (room_id) {
+	let sql = `select * from room_table where room_id = ${pool.escape(room_id)};`
+	return to_query(sql);
+}
+
+exports.editRoom = function (room_id, room_name, capacity, faculty_id = null) {
+	let sql = `update room_table set room_name = ${pool.escape(room_name)}, capacity = ${pool.escape(capacity)} where room_id = ${pool, escape(room_id)};`;
+	if (faculty_id) {
+		sql = `update room_table set room_name = ${pool.escape(room_name)}, capacity = ${pool.escape(capacity)}, faculty_id = ${pool.escape(faculty_id)} where room_id = ${pool.escape(room_id)};`;
+	}
+	console.log("fid", sql)
+	return to_query(sql)
+}
+
+exports.setFlagDelete = function (room_id) {
+	let sql = `update room_table set deleted = 1 where room_id = ${pool, escape(room_id)};`;
+	return to_query(sql)
 }

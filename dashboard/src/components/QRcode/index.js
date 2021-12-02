@@ -2,9 +2,10 @@ import React, { createRef, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import QRCode from 'qrcode'
 import axios from 'axios'
+import env from '../../../../env.json'
 
 function index() {
-	let { id } = useParams()
+	const { id } = useParams()
 	const qrCodeRef = createRef();
 
 	const [qrcode, setQRcode] = useState()
@@ -25,7 +26,7 @@ function index() {
 		// })
 
 		Promise.all([
-			axios.get('https://checkin.su.ac.th/api/getroom?faculty_id=0'),
+			axios.get(env.API + '/getroom?faculty_id=0'),
 			QRCode.toDataURL("https://liff.line.me/1656648913-LPnNjRg6?roomId=" + id, { width: 384 })
 		]).then(([res, qr]) => {
 			const currentRoom = res.data.find(r => r.room_id == id)

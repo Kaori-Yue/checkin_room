@@ -1,5 +1,5 @@
 const axios = require('axios').default
-const env = require('../../env.json')
+const env = require('../../backend.json')
 const { register_std, register_from_su, register_from_su_as_staff } = require('../repository_db/student_repo')
 
 exports.register = async (req, res) => {

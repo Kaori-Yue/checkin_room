@@ -19,6 +19,8 @@ import Class_student from "./components/Auth/Manage/Class/Class_student";
 import { FacultyContext, FacultyProvider } from './store/FacultyContext'
 import ContextProvider from './store/providerComposer'
 import AddRoom from './components/Auth/Manage/AddRoom'
+import EditRoom from './components/Auth/Manage/EditRoom'
+import DeleteRoom from './components/Auth/Manage/DeleteRoom'
 import { UserInfoContext } from './store/UserInfoContext'
 import jwt from 'jsonwebtoken'
 import QRcode from './components/QRcode'
@@ -95,6 +97,14 @@ function App() {
 
 						<Route exact path="/manage_room/add_room">
 							<AddRoom />
+						</Route>
+
+						<Route exact path="/manage_room/edit/:id">
+							<EditRoom />
+						</Route>
+
+						<Route exact path="/manage_room/delete/:id">
+							<DeleteRoom />
 						</Route>
 
 						<Route exact path="/qrcode/:id">

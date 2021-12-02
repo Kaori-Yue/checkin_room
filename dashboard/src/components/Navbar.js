@@ -128,6 +128,35 @@ function Navbar(prop) {
 							<li className="dropdown-item navbar-text">
 								<Link to="/manage_room/add_room" className="navbar-text text-dark">เพิ่มจุด SU check-in</Link>
 							</li>
+
+							<li className="dropdown-item navbar-text">
+								<Link className="navbar-text text-dark" to={{
+									pathname: "/manage_room",
+									state: {
+										addRoom: {
+											success: true,
+											text: "success"
+										}
+									}
+								}}>
+									Success
+								</Link>
+							</li>
+
+							<li className="dropdown-item navbar-text">
+								<Link className="navbar-text text-dark" to={{
+									pathname: "/manage_room",
+									state: {
+										addRoom: {
+											success: false,
+											text: "success"
+										}
+									}
+								}}>
+									Fail
+								</Link>
+							</li>
+
 						</div>
 					</li>
 				</ul>

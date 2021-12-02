@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { FacultyContext } from '../../../../store/FacultyContext'
 import { UserInfoContext } from '../../../../store/UserInfoContext'
 import { AddRoom as AddRoomAPI } from '../../../../api'
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -12,10 +13,15 @@ function AddRoom() {
 
 	const [formValidate, setFormValidate] = useState(false)
 
+	const btnSubmit = useRef()
+
+	const history = useHistory()
+
 
 	console.log("context addroom: " + JSON.stringify(userInfo, null, 2))
 
 	const handleSubmit = async (event) => {
+
 		event.preventDefault()
 		event.stopPropagation()
 
@@ -30,18 +36,34 @@ function AddRoom() {
 			return
 
 		// validate success
+		if (btnSubmit.current) {
+			btnSubmit.current.setAttribute("disabled", "disabled")
+		}
 		const form = new FormData(event.target)
 		const json = Object.assign({}, ...Array.from(form.entries(), ([key, value]) => ({ [key]: value })))
 		console.log(json)
 		// return
+		
 		const req = await AddRoomAPI(json)
+
 		console.log(req.data)
-		// const req = await Register({
-		// 	invite_code: json.invite,
-		// 	name: json.name,
-		// 	username: json.username,
-		// 	password: json.password
-		// })
+		if (!req.data.success) {
+			// fail
+			return history.push("/manage_room", {
+				addRoom: {
+					success: false,
+					text: "เพิ่มจุด SU Check-in ไม่สำเร็จ"
+				}
+			})
+		}
+		return history.push("/manage_room", {
+			addRoom: {
+				success: true,
+				text: `เพิ่มจุด SU Check-in (${json.room_name}) สำเร็จแล้ว`
+			}
+		})
+		
+		
 
 	}
 
@@ -86,7 +108,7 @@ function AddRoom() {
 									}
 								</select>
 								<div className="invalid-feedback">
-									กรุณาหน่วยงาน
+									กรุณาเลือกหน่วยงาน
 								</div>
 							</div>
 
@@ -112,7 +134,7 @@ function AddRoom() {
 							</div>
 
 							<div className="form-group mt-4">
-								<button type="submit" className="btn btn-primary btn-block">
+								<button ref={btnSubmit} type="submit" className="btn btn-primary btn-block">
 									ยืนยัน
 								</button>
 							</div>
