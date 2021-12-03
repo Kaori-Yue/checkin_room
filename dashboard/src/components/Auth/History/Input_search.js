@@ -39,7 +39,7 @@ function Input_search({
     }, [])
 
 
-    const room_select_element = room_list && room_list.map(e => {
+    const room_select_element = room_list && room_list.filter(f => f.deleted == false).map(e => {
         const { room_id, room_name } = e
 
         return (

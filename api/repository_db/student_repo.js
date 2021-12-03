@@ -409,6 +409,7 @@ exports.get_history = function (student_id, student_name, class_id, class_sect, 
     and student_table.student_name like '%${student_name}%'
     and transaction.timestamp_checkin > "${start_time} 00:00:00"
     and transaction.timestamp_checkin < "${end_time} 23:59:00"
+	and room_table.deleted = 0
     `
 	if (+role_id !== 0)
 		sql = sql + ` and room_table.faculty_id = '${role_id}'`
