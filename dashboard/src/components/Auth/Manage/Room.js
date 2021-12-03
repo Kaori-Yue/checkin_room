@@ -112,7 +112,7 @@ function Room() {
 									</Link> */}
 
 									<Link to={"/qrcode/" + room_id} className="mr-3">
-										<FontAwesomeIcon icon={faQrcode} title="QR Code" />
+										<FontAwesomeIcon icon={faQrcode} color='black' title="QR Code" />
 									</Link>
 
 									<Link to={"/manage_room/edit/" + room_id} className="mr-3">
@@ -120,7 +120,7 @@ function Room() {
 									</Link>
 
 									<Link to={"/manage_room/delete/" + room_id} className="mr-3">
-										<FontAwesomeIcon icon={faTrash} title="Delete" />
+										<FontAwesomeIcon icon={faTrash} color='red' title="Delete" />
 									</Link>
 
 								</td>
