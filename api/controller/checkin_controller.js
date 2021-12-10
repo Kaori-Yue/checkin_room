@@ -81,7 +81,8 @@ exports.getInfo = async (req, res) => {
                     "student_id": obj.student_id,
                     "student_name": obj.student_name,
                     "room_name": obj.room_name,
-                    "capacity": obj.capacity
+                    "capacity": obj.capacity,
+					"accountType": obj.accountType
                 })
             }
             else if (obj != undefined && obj.msg == 'has account no checkin') {
@@ -92,7 +93,8 @@ exports.getInfo = async (req, res) => {
                     "student_id": obj.student_id,
                     "student_name": obj.student_name,
                     "room_name": obj.room_name,
-                    "capacity": obj.capacity
+                    "capacity": obj.capacity,
+					"accountType": obj.accountType
                 })
             }
             else {

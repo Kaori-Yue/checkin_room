@@ -193,6 +193,7 @@ exports.getInfo = function (u_id, room_id) {
     end as msg,
     student_table.student_id as student_id,
     student_table.student_name as student_name,
+	student_table.accountType as accountType,
     room_table.room_name as room_name,
     room_table.capacity as capacity
     from student_table,room_table
