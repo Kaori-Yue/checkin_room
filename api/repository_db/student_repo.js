@@ -240,7 +240,7 @@ exports.login = function (username, hash_password) {
  */
 exports.register = function (username, hash_password, name, role, about) {
 	let sql = `insert into admin (username,hash_password,name,role,about)
-    values ('${username}','${hash_password}','${name}',${role},'${about}');`
+    values (${pool.escape(username)},${pool.escape(hash_password)},${pool.escape(name)},${pool.escape(role)},${pool.escape(about)});`
 	return to_query(sql);
 }
 
@@ -608,6 +608,41 @@ exports.editRoom = function (room_id, room_name, capacity, faculty_id = null) {
 }
 
 exports.setFlagDelete = function (room_id) {
-	let sql = `update room_table set deleted = 1 where room_id = ${pool, escape(room_id)};`;
+	let sql = `update room_table set deleted = 1 where room_id = ${pool.escape(room_id)};`;
+	return to_query(sql)
+}
+
+exports.getCountAdmin = function () {
+	// let sql = `select
+	// 	count(admin.username) as count,
+	// 	admin.role, faculty_table.faculty_name
+	// 	from admin,faculty_table
+	// 	where admin.role = faculty_table.faculty_id
+	// 	group by admin.role;`
+
+	let sql = `select count(admin.username) as count,
+		faculty_table.faculty_id as role, faculty_table.faculty_name
+		from faculty_table left join admin
+		on (faculty_table.faculty_id = admin.role)
+		group by faculty_table.faculty_id;`
+
+	return to_query(sql)
+}
+
+exports.getRoomCreatedInfo = function () {
+	let sql = `select count(room_table.room_id) as created,
+		count(case when room_table.deleted = 0 then 1 end) as available,
+		count(case when room_table.deleted = 1 then 1 end) as deleted,
+		faculty_table.faculty_name,
+		faculty_table.faculty_id
+
+		from faculty_table left join room_table
+		on (faculty_table.faculty_id = room_table.faculty_id)
+		group by faculty_table.faculty_id;`
+	return to_query(sql)
+}
+
+exports.createGroup = function (group_name) {
+	let sql = `insert into faculty_table (faculty_name) values(${pool.escape(group_name)});`
 	return to_query(sql)
 }

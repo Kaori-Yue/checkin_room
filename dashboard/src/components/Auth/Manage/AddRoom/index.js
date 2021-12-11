@@ -43,7 +43,7 @@ function AddRoom() {
 		const json = Object.assign({}, ...Array.from(form.entries(), ([key, value]) => ({ [key]: value })))
 		console.log(json)
 		// return
-		
+
 		const req = await AddRoomAPI(json)
 
 		console.log(req.data)
@@ -62,22 +62,22 @@ function AddRoom() {
 				text: `เพิ่มจุด SU Check-in (${json.room_name}) สำเร็จแล้ว`
 			}
 		})
-		
-		
+
+
 
 	}
 
-	const isPowerAdmin = (admin) => {
+	const isPowerAdmin_select = (admin) => {
 		if (admin === true)
 			return (
-				<>
+				<select type="text" className="custom-select" name="faculty_id" required autofocus>
 					<option selected value="" disabled>เลือกหน่วยงาน...</option>
 					{
 						faculty.map(fac => {
 							return (<option key={fac.faculty_id} value={fac.faculty_id}>{fac.faculty_name}</option>)
 						})
 					}
-				</>
+				</select>
 			)
 		// 
 
@@ -86,7 +86,10 @@ function AddRoom() {
 		console.log("role:,", f?.faculty_name)
 		return (
 			<>
-				<option selected value={f?.faculty_id ?? ""}>{ f?.faculty_name || "N/A" }</option>
+				<select disabled type="text" className="custom-select" required autofocus>
+					<option selected value={f?.faculty_id ?? ""}>{f?.faculty_name || "N/A"}</option>
+				</select>
+				<input type='hidden' name='faculty_id' value={f?.faculty_id ?? ""} />
 			</>
 		)
 	}
@@ -102,11 +105,7 @@ function AddRoom() {
 
 							<div className="form-group">
 								<label for="faculty_id">หน่วยงาน</label>
-								<select type="text" className="custom-select" name="faculty_id" required autofocus>
-									{
-										userInfo?.role === 0 ? isPowerAdmin(true) : isPowerAdmin(false)
-									}
-								</select>
+								{userInfo?.role === 0 ? isPowerAdmin_select(true) : isPowerAdmin_select(false)}
 								<div className="invalid-feedback">
 									กรุณาเลือกหน่วยงาน
 								</div>

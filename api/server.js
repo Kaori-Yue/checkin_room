@@ -86,6 +86,10 @@ app.get('/get_roominfo', std_controller.getRoomInfo);
 app.post('/editRoom', std_controller.setRoomInfo)
 app.post('/deleteRoom', std_controller.setRoomDelete)
 
+app.get('/count_admin', faculty_controller.getCountAdmin)
+app.get('/room_created_info', faculty_controller.getRoomCreatedInfo)
+app.post('/create/group', faculty_controller.createNewGroup)
+
 authenRoute.post('/get_profile', std_controller.get_profile);
 authenRoute.get('/count_room', checkin_controller.count_room);
 authenRoute.post('/rename_student', std_controller.rename_student);

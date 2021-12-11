@@ -91,6 +91,33 @@ function Navbar(prop) {
 		setToken, token, removeToken, isToken
 	} = prop;
 
+	const showOnlyPowerAdmin = () => {
+		if (jwt.decode(token).role !== 0)
+			return
+		return (
+			<li class="nav-item dropdown">
+				<a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Admin
+				</a>
+				<div style={{ backgroundColor: "white" }} class="dropdown-menu " aria-labelledby="navbarDropdown">
+					<li className="dropdown-item navbar-text">
+						<Link to="/groups" className="navbar-text text-dark">หน่วยงาน</Link>
+					</li>
+
+					<li class="dropdown-item navbar-text">
+						<Link style={{ color: "black" }} to="/users" class="navbar-text">ผู้ดูแลระบบ</Link>
+					</li>
+
+
+
+
+				</div>
+			</li>
+		)
+	}
+
+
+
 	function hideNavbar() {
 		if (isToken()) {
 			return (
@@ -132,6 +159,7 @@ function Navbar(prop) {
 
 						</div>
 					</li>
+					{showOnlyPowerAdmin()}
 				</ul>
 
 			)

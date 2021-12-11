@@ -61,6 +61,46 @@ export function editRoom(params) {
  * @param {string} params.room_id
  * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
  */
-export function deleteRoom(params) {
+ export function deleteRoom(params) {
 	return axios.post(env.API + '/deleteRoom', { ...params })
+}
+
+/**
+ * 
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function getCountAdmin() {
+	return axios.get(env.API + '/count_admin')
+}
+
+/**
+ * 
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function getRoomCreatedInfo() {
+	return axios.get(env.API + '/room_created_info')
+}
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.groupName
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function createGroup(params) {
+	return axios.post(env.API + '/create/group', { ...params })
+}
+
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.username
+ * @param {string} params.password
+ * @param {string} params.name
+ * @param {string} params.role
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function createUser(params) {
+	return axios.post(env.API + '/register', { ...params })
 }

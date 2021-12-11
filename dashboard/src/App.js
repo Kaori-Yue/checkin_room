@@ -24,6 +24,12 @@ import DeleteRoom from './components/Auth/Manage/DeleteRoom'
 import { UserInfoContext } from './store/UserInfoContext'
 import jwt from 'jsonwebtoken'
 import QRcode from './components/QRcode'
+import Users from './components/Users'
+import Groups from './components/Groups'
+import AddUser from './components/Users/AddUser'
+import AddGroup from './components/Groups/AddGroup'
+
+import SuperAdminRoute from './components/SuperAdminRoute'
 
 function App() {
 
@@ -110,6 +116,27 @@ function App() {
 						<Route exact path="/qrcode/:id">
 							<QRcode />
 						</Route>
+
+						{/* <Route exact path="/users">
+							<Users />
+						</Route>
+
+						<Route exact path="/users/adduser">
+							<AddUser />
+						</Route>
+
+						<Route exact path="/groups">
+							<Groups />
+						</Route>
+
+						<Route exact path="/groups/addgroup">
+							<AddGroup />
+						</Route> */}
+
+						<SuperAdminRoute exact path="/users" compoment={Users} />
+						<SuperAdminRoute exact path="/users/adduser" compoment={AddUser} />
+						<SuperAdminRoute exact path="/groups" compoment={Groups} />
+						<SuperAdminRoute exact path="/groups/addgroup" compoment={AddGroup} />
 
 
 					</div>

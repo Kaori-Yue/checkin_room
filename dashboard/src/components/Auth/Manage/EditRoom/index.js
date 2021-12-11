@@ -85,7 +85,7 @@ function AddRoom() {
 		const f = faculty.filter(fac => fac.faculty_id === roomInfo?.data.faculty_id).pop()
 		return (
 			<>
-			<select disabled type="text" className="custom-select" name="faculty_id" required autofocus>
+			<select disabled type="text" className="custom-select" required autofocus>
 				<option selected value={f?.faculty_id ?? ""}>{f?.faculty_name || "N/A"}</option>
 			</select>
 			<input type="hidden" name="faculty_id" value={roomInfo?.data.faculty_id} />
