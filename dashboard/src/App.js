@@ -1,11 +1,7 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { useCookies } from "react-cookie";
 import Navbar from './components/Navbar'
-import {
-	Switch,
-	Route,
-	Redirect
-} from "react-router-dom";
+import { Switch, Route, Redirect, useHistory} from "react-router-dom";
 import Home from './components/Home';
 import Table from './components/Auth/Table/Table';
 import History from './components/Auth/History/History';
@@ -28,6 +24,7 @@ import Users from './components/Users'
 import Groups from './components/Groups'
 import AddUser from './components/Users/AddUser'
 import AddGroup from './components/Groups/AddGroup'
+import { loginWithSSO } from './api'
 
 import SuperAdminRoute from './components/SuperAdminRoute'
 
@@ -36,6 +33,30 @@ function App() {
 	document.body.style.fontFamily = "Kanit, sans-serif"
 
 	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
+	const history = useHistory()
+	// login with SSO
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search)
+		const code = params.get('code')
+		if (!code)
+			return
+		// 
+		loginWithSSO({ code })
+			.then(res => {
+				if (res.data.success) {
+					console.log(res.data)
+					setToken(res.data.token)
+				}
+				else {
+					alert("Login ไม่สำเร็จ หรือไม่พบชื่อผู้ใช้ของคุณในระบบ")
+				}
+			})
+			.finally(() => {
+				history.replace('/')
+			})
+
+
+	}, [])
 
 
 

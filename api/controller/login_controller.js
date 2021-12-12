@@ -22,7 +22,7 @@ exports.login = async (req,res)=>{
             res.send({
                 "success":true,
                 "token":token,
-                "data":data[0]
+                // "data":data[0]
             })
         }else{
             res.send({

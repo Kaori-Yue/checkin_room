@@ -1,6 +1,52 @@
 const axios = require('axios').default
 const env = require('../../backend.json')
 const { register_std, register_from_su, register_from_su_as_staff } = require('../repository_db/student_repo')
+const { loginWithSSO } = require('../repository_db/student_repo')
+const jwt = require('jsonwebtoken')
+
+exports.loginWithSSO = async (req, res) => {
+	try {
+		const code = req.body.code
+		const reqString = `?grant_type=authorization_code&client_id=${env.CLIENT_ID}&redirect_uri=${env.REDIRECT_URI_DASHBOARD}&client_secret=${env.CLIENT_SECRET}&code=${code}`
+		const reqToken = await axios.post("https://nidp.su.ac.th/nidp/oauth/nam/token" + reqString)
+		const { access_token, token_type } = reqToken.data
+
+		const reqUserInfo = await axios("https://nidp.su.ac.th/nidp/oauth/nam/userinfo", {
+			method: "GET",
+			headers: {
+				Authorization: token_type + " " + access_token
+			}
+		})
+
+		const email = reqUserInfo.data.website
+		const login = await loginWithSSO(email)
+		if (!login[0]) {
+			return res.send({
+				success: false
+			})
+		}
+		const loginData = login[0]
+		const data = {
+			username: loginData.username,
+			name: loginData.name,
+			role: loginData.role,
+			about: loginData.about
+		}
+		const token = jwt.sign(data, env.JWT_SECRET)
+		// 43200 seconds = 12 hours
+		res.cookie('jwt', token, { maxAge: 43200})
+		res.send({
+			success: true,
+			token
+		})
+
+	} catch (ex) {
+		console.log(ex)
+		res.send({
+			success: false
+		})
+	}
+}
 
 exports.register = async (req, res) => {
 	const code = req.body.code

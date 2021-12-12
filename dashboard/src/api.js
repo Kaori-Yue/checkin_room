@@ -104,3 +104,14 @@ export function editRoom(params) {
  export function createUser(params) {
 	return axios.post(env.API + '/register', { ...params })
 }
+
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.code
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function loginWithSSO(params) {
+	return axios.post(env.API + '/dashboard/login/su', { ...params })
+}

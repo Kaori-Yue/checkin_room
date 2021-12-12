@@ -646,3 +646,13 @@ exports.createGroup = function (group_name) {
 	let sql = `insert into faculty_table (faculty_name) values(${pool.escape(group_name)});`
 	return to_query(sql)
 }
+
+/**
+ * 
+ * @param {string} username 
+ * @param {string} password 
+ */
+ exports.loginWithSSO = function (username) {
+	let sql = `select * from admin where username = ${pool.escape(username)};`
+	return to_query(sql);
+}
