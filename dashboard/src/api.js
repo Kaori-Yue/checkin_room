@@ -156,3 +156,16 @@ export function editRoom(params) {
 	return axios.get(env.API + '/room/statistics')
 }
 
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.roomID
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function roomStats(params) {
+	return axios.get(env.API + '/room/used?roomID=' + params.roomID)
+}
+
+
+

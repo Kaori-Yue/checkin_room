@@ -27,6 +27,7 @@ import AddGroup from './components/Groups/AddGroup'
 import Users_Group from './components/Users/Group'
 import DeleteUser from './components/Users/DeleteUser'
 import RoomStats from './components/RoomStatistics'
+import RoomUsed from './components/RoomStatistics/RoomUsed'
 import { deleteUser, loginWithSSO } from './api'
 
 import SuperAdminRoute from './components/SuperAdminRoute'
@@ -140,6 +141,8 @@ function App() {
 						<Route exact path="/qrcode/:id">
 							<QRcode />
 						</Route>
+
+						<Route exact path='/manage_room/view/:id' component={RoomUsed}/>
 
 						{/* <Route exact path="/users">
 							<Users />

@@ -707,3 +707,21 @@ exports.roomStatistics = function (username) {
 	order by count desc`
 	return to_query(sql);
 }
+
+/**
+ * 
+ * @param {number} groupID 
+ */
+exports.getUsedSlotRoom = function(groupID) {
+	const sql = `select room_table.room_id,
+		room_table.room_name,
+		room_table.capacity,
+		room_table.faculty_id,
+		count(*) as count
+	from room_table
+	left join transaction
+	on (room_table.room_id = transaction.room_id)
+	where room_table.room_id = ?
+	and transaction.status = 1`
+	return to_query(sql, [groupID])
+}

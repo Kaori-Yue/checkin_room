@@ -92,3 +92,31 @@ exports.roomStatistics = async (req, res) => {
 		})
 	}
 }
+
+exports.getUsedSlotRoom = async (req, res) => {
+	try {
+		const roomID = Number(req.query.roomID)
+		if (Number.isNaN(roomID)) {
+			return res.send({
+				"success": false
+			})
+		}
+
+		let data = await std_repo.getUsedSlotRoom(roomID);
+		if (!data[0]) {
+			return res.send({
+				"success": false
+			})
+		}
+		res.send({
+			"success": true,
+			"data": data[0]
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}

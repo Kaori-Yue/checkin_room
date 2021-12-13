@@ -2,7 +2,7 @@ import React, { useState, useCallback, useContext } from 'react';
 import Axios from 'axios'
 import { useCookies } from "react-cookie";
 import jwt from 'jsonwebtoken'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import env from './../../../env.json';
 
 function Login(prop) {
@@ -10,7 +10,6 @@ function Login(prop) {
 	const {
 		setToken, token, removeToken, isToken
 	} = prop
-
 
 
 	const [username, setUsername] = useState('');
@@ -100,6 +99,8 @@ function Navbar(prop) {
 	const {
 		setToken, token, removeToken, isToken
 	} = prop;
+	const { state, pathname } = useLocation()
+
 
 	const showOnlyPowerAdmin = () => {
 		if (jwt.decode(token).role !== 0)
@@ -180,7 +181,15 @@ function Navbar(prop) {
 		}
 	}
 
+	const hideNavbarPaths = [
+		// /\/manage_room\/view\/*/i
+		RegExp('manage_room/view/*')
+	]
 
+
+	if (state?.hideNavbar === true || hideNavbarPaths.some(path => path.test(pathname))) {
+		return <></>
+	}
 
 	return (
 

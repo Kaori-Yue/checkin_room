@@ -8,6 +8,7 @@ import { FacultyContext } from '../../../store/FacultyContext'
 import { useRouteMatch, Link, useLocation, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQrcode, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faWindowMaximize } from '@fortawesome/free-regular-svg-icons'
 
 
 const qrcode_gen = async function (room_id) {
@@ -91,6 +92,15 @@ function Room() {
 
 									<Link to={"/manage_room/edit/" + room_id} className="mr-3">
 										<FontAwesomeIcon icon={faEdit} title="Edit" />
+									</Link>
+
+									<Link to={{
+										pathname: '/manage_room/view/' + room_id,
+										state: {
+											hideNavbar: true
+										}
+									}} className="mr-3">
+										<FontAwesomeIcon icon={faWindowMaximize} title="Edit" />
 									</Link>
 
 									<Link to={"/manage_room/delete/" + room_id} className="mr-3">

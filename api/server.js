@@ -95,6 +95,7 @@ app.get('/users_by_group', user_controller.getUsersByGroupID)
 app.get('/user_by_username', user_controller.getUserByUsername)
 app.post('/delete_user_by_username', user_controller.deleteUserByUsername)
 app.get('/room/statistics', user_controller.roomStatistics)
+app.get('/room/used', user_controller.getUsedSlotRoom)
 
 authenRoute.post('/get_profile', std_controller.get_profile);
 authenRoute.get('/count_room', checkin_controller.count_room);
