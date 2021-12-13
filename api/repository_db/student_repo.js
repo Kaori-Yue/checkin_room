@@ -2,6 +2,7 @@ const mariadb = require('mariadb');
 const env = require('./../../backend.json')
 const helper = require('../../api/helper');
 const { get_term } = require('../controller/class_controller');
+const { faPoll } = require('@fortawesome/free-solid-svg-icons');
 
 
 var pool = mariadb.createPool({
@@ -17,11 +18,13 @@ var pool = mariadb.createPool({
 });
 
 
-const to_query = function (sql) {
+const to_query = function (...sql) {
 	return new Promise(async (resolve, reject) => {
 		try {
+			console.log('to_query', sql)
+
 			let _pool = await pool.getConnection();
-			let res_query = await _pool.query(sql);
+			let res_query = await _pool.query(...sql);
 			_pool.release();
 			resolve(res_query);
 		}
@@ -238,9 +241,9 @@ exports.login = function (username, hash_password) {
  * @param {string} name 
  * @param {string} about 
  */
-exports.register = function (username, hash_password, name, role, about) {
+exports.register = function (username, hash_password, name, role, about, noPassword = false) {
 	let sql = `insert into admin (username,hash_password,name,role,about)
-    values (${pool.escape(username)},${pool.escape(hash_password)},${pool.escape(name)},${pool.escape(role)},${pool.escape(about)});`
+    values (${pool.escape(username)},${noPassword ? 'NULL' : pool.escape(hash_password)},${pool.escape(name)},${pool.escape(role)},${pool.escape(about)});`
 	return to_query(sql);
 }
 
@@ -603,7 +606,6 @@ exports.editRoom = function (room_id, room_name, capacity, faculty_id = null) {
 	if (faculty_id) {
 		sql = `update room_table set room_name = ${pool.escape(room_name)}, capacity = ${pool.escape(capacity)}, faculty_id = ${pool.escape(faculty_id)} where room_id = ${pool.escape(room_id)};`;
 	}
-	console.log("fid", sql)
 	return to_query(sql)
 }
 
@@ -650,9 +652,58 @@ exports.createGroup = function (group_name) {
 /**
  * 
  * @param {string} username 
- * @param {string} password 
  */
- exports.loginWithSSO = function (username) {
+exports.loginWithSSO = function (username) {
 	let sql = `select * from admin where username = ${pool.escape(username)};`
+	return to_query(sql);
+}
+
+/**
+ * 
+ * @param {string} groupID 
+ */
+exports.getUsersByGroupID = function (groupID) {
+	// let sql = `select username, created_at from admin where role = ${pool.escape(groupID)};`
+	const sql = `select username, created_at from admin where role = ?`
+	// console.log('sql', sql)
+	return to_query(sql, [groupID]);
+}
+
+
+/**
+ * 
+ * @param {string} username 
+ */
+exports.getUserByUsername = function (username) {
+	let sql = `select username, name, created_at from admin where username = ${pool.escape(username)};`
+	return to_query(sql);
+}
+
+/**
+ * 
+ * @param {string} username 
+ */
+exports.deleteUserByUsername = function (username) {
+	let sql = `delete from admin where username = ${pool.escape(username)};`
+	return to_query(sql);
+}
+
+/**
+ * 
+ * @param {string} username 
+ */
+exports.roomStatistics = function (username) {
+	let sql = `select count(timestamp_checkin) as count,
+		room_table.room_id,
+		room_table.room_name,
+		faculty_table.faculty_id,
+	faculty_table.faculty_name
+	from transaction
+	left join room_table
+	on (room_table.room_id = transaction.room_id)
+	left join faculty_table
+	on (faculty_table.faculty_id = room_table.faculty_id)
+	group by room_table.room_id
+	order by count desc`
 	return to_query(sql);
 }

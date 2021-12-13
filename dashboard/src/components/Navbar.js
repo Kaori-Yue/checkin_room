@@ -80,7 +80,7 @@ function Login(prop) {
 				<button style={{ backgroundColor: "#228763", color: "white" }} class="btn  my-2 my-sm-0" type="submit" >เข้าสู่ระบบ</button>
 
 				<a className='navbar-brand ml-4' href={`https://nidp.su.ac.th/nidp/oauth/nam/authz?client_id=2e7fdf0e-944c-4d6c-a2f4-e3c4bbb894e8&redirect_uri=${location.origin}/admin/&scope=profile&response_type=code`}>
-					<button type='button' className='btn btn-info'>Single Sign On</button>
+					<button type='button' className='btn btn-info'>Single Sign-On</button>
 				</a>
 			
 			</form>
@@ -116,6 +116,10 @@ function Navbar(prop) {
 
 					<li class="dropdown-item navbar-text">
 						<Link style={{ color: "black" }} to="/users" class="navbar-text">ผู้ดูแลระบบ</Link>
+					</li>
+
+					<li class="dropdown-item navbar-text">
+						<Link style={{ color: "black" }} to="/room/statistics" class="navbar-text">สถิติการใช้งาน</Link>
 					</li>
 
 

@@ -1,0 +1,94 @@
+const std_repo = require('./../../api/repository_db/student_repo');
+const env = require('./../../env.json')
+
+
+exports.getCountAdmin = async (req, res) => {
+	try {
+		let data = await std_repo.getCountAdmin();
+		res.send({
+			"success": true,
+			"data": data
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}
+
+
+exports.getUsersByGroupID = async (req, res) => {
+	try {
+		const groupID = Number(req.query.groupID)
+		if (Number.isNaN(groupID)) {
+			return res.send({
+				"success": false
+			})
+		}
+
+		let data = await std_repo.getUsersByGroupID(groupID);
+		res.send({
+			"success": true,
+			"data": data
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}
+
+exports.getUserByUsername = async (req, res) => {
+	try {
+		const username = req.query.username
+		let data = await std_repo.getUserByUsername(username);
+		res.send({
+			"success": true,
+			"data": data
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}
+
+
+exports.deleteUserByUsername = async (req, res) => {
+	try {
+		const username = req.body.username
+		let data = await std_repo.deleteUserByUsername(username);
+		res.send({
+			"success": true,
+			"data": data
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}
+
+exports.roomStatistics = async (req, res) => {
+	try {
+		let data = await std_repo.roomStatistics();
+		res.send({
+			"success": true,
+			"data": data
+		})
+	}
+	catch (ex) {
+		console.log(ex)
+		res.send({
+			"success": false
+		})
+	}
+}

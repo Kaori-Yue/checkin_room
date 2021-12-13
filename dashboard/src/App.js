@@ -24,7 +24,10 @@ import Users from './components/Users'
 import Groups from './components/Groups'
 import AddUser from './components/Users/AddUser'
 import AddGroup from './components/Groups/AddGroup'
-import { loginWithSSO } from './api'
+import Users_Group from './components/Users/Group'
+import DeleteUser from './components/Users/DeleteUser'
+import RoomStats from './components/RoomStatistics'
+import { deleteUser, loginWithSSO } from './api'
 
 import SuperAdminRoute from './components/SuperAdminRoute'
 
@@ -158,6 +161,9 @@ function App() {
 						<SuperAdminRoute exact path="/users/adduser" compoment={AddUser} />
 						<SuperAdminRoute exact path="/groups" compoment={Groups} />
 						<SuperAdminRoute exact path="/groups/addgroup" compoment={AddGroup} />
+						<SuperAdminRoute exact path="/users/group/:id" compoment={Users_Group} />
+						<SuperAdminRoute exact path="/users/delete" compoment={DeleteUser} />
+						<SuperAdminRoute exact path="/room/statistics" compoment={RoomStats} />
 
 
 					</div>

@@ -19,21 +19,7 @@ exports.get_faculty = async (req, res) => {
 	}
 }
 
-exports.getCountAdmin = async (req, res) => {
-	try {
-		let data = await std_repo.getCountAdmin();
-		res.send({
-			"success": true,
-			"data": data
-		})
-	}
-	catch (ex) {
-		console.log(ex)
-		res.send({
-			"success": false
-		})
-	}
-}
+
 
 exports.getRoomCreatedInfo = async (req, res) => {
 	try {

@@ -1,38 +1,52 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { FacultyContext } from '../../store/FacultyContext'
+import { FacultyContext } from '../../../store/FacultyContext'
 import Axios from 'axios'
-import { getCountAdmin } from '../../api'
-import { Link, useLocation } from 'react-router-dom'
+import { getUsersByGroupID } from '../../../api'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faUsers } from '@fortawesome/free-solid-svg-icons'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 
 function index() {
-	// const [faculty] = useContext(FacultyContext)
+	const [faculty] = useContext(FacultyContext)
 	const [data, setData] = useState(null)
 	const { state } = useLocation()
+	const { id } = useParams()
+	dayjs.extend(utc)
+
+	const fac_name = faculty.find(f => f.faculty_id == id)?.faculty_name || "N/A"
 
 	console.log(data);
 
 	useEffect(() => {
-		getCountAdmin()
+		getUsersByGroupID({ groupID: id })
 			.then(res => setData(res.data))
 	}, [])
 	const renderFaculty = () => {
-		if (!data)
+		if (!data || data?.success === false)
 			return
 
 		return (
 			data.data
 				// .sort((a, b) => a.faculty_id - b.faculty_id)
-				.map(d => {
+				.map((d, index) => {
 					return (
 						<tr>
-							<th>{d.role}</th>
-							<td>{d.faculty_name}</td>
-							<td>{d.count}</td>
+							<th>{index + 1}</th>
+							<td>{d.username}</td>
+							<td>{dayjs.utc(d.created_at).local().format('DD-MM-YYYY')}</td>
 							<td>
-								<Link to={"/users/group/" + d.role} className="mr-3">
-									<FontAwesomeIcon icon={faUsers} color='black' title="QR Code" />
+								<Link to={{
+									pathname: '/users/delete',
+									state: {
+										username: d.username,
+										groupID: id,
+										groupName: fac_name
+
+									}
+								}} className="mr-3">
+									<FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} color='black' title="QR Code" />
 								</Link>
 							</td>
 						</tr>
@@ -46,10 +60,9 @@ function index() {
 
 			<div className='container-fluid'>
 				<div className='row mt-2'>
-					<div className='col-9 mx-auto text-right'>
-						<Link to={'/users/adduser'}>
-							<button className='btn btn-primary'>เพิ่มผู้ดูแล</button>
-						</Link>
+					<div className='col-9 mx-auto text-center'>
+						<h4>รายชื่อผู้ดูแลระบบ</h4>
+						<h4>{fac_name}</h4>
 					</div>
 				</div>
 
@@ -82,9 +95,9 @@ function index() {
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>หน่วยงาน</th>
-									<th>จำนวนผู้ดูแล</th>
+									<th>#</th>
+									<th>ชื่อผู้ใช้งาน</th>
+									<th>เวลาที่สร้าง</th>
 									<th>จัดการ</th>
 								</tr>
 							</thead>

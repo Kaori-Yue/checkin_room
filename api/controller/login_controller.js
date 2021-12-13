@@ -45,9 +45,10 @@ exports.register = async (req,res)=>{
     let name = req.body.name;
     let about = req.body.about;
 	let role = req.body.role;
+	const noPassword = req.body.noPassword === 'true';
     let hash_password = crypto.createHash('sha256').update(password).digest('hex');
     try {
-        let data = await std_repo.register(username,hash_password,name,role,about);
+        let data = await std_repo.register(username,hash_password,name,role,about, noPassword);
         res.send({
             "success":true
         })

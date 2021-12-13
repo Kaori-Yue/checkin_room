@@ -14,6 +14,7 @@ const profile_controller = require('./controller/profile_controller')
 const faculty_controller = require('./controller/faculty_controller');
 const suAccount_controller = require('./controller/suAccount_controller')
 const guestAccount_controller = require('./controller/guestAccount_controller')
+const user_controller = require('./controller/user_controller')
 const line_middle_ware = require('./line_authen');
 const helper = require('./helper');
 
@@ -86,10 +87,14 @@ app.get('/get_roominfo', std_controller.getRoomInfo);
 app.post('/editRoom', std_controller.setRoomInfo)
 app.post('/deleteRoom', std_controller.setRoomDelete)
 
-app.get('/count_admin', faculty_controller.getCountAdmin)
+app.get('/count_admin', user_controller.getCountAdmin)
 app.get('/room_created_info', faculty_controller.getRoomCreatedInfo)
 app.post('/create/group', faculty_controller.createNewGroup)
 app.post('/dashboard/login/su', suAccount_controller.loginWithSSO)
+app.get('/users_by_group', user_controller.getUsersByGroupID)
+app.get('/user_by_username', user_controller.getUserByUsername)
+app.post('/delete_user_by_username', user_controller.deleteUserByUsername)
+app.get('/room/statistics', user_controller.roomStatistics)
 
 authenRoute.post('/get_profile', std_controller.get_profile);
 authenRoute.get('/count_room', checkin_controller.count_room);

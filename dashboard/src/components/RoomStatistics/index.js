@@ -1,43 +1,54 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FacultyContext } from '../../store/FacultyContext'
 import Axios from 'axios'
-import { getCountAdmin } from '../../api'
+import { roomStatistics } from '../../api'
 import { Link, useLocation } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
 function index() {
 	// const [faculty] = useContext(FacultyContext)
 	const [data, setData] = useState(null)
+	const [dataTotal, setDataTotal] = useState({
+		totalCheckin: 0,
+	})
+
 	const { state } = useLocation()
 
 	console.log(data);
 
 	useEffect(() => {
-		getCountAdmin()
-			.then(res => setData(res.data))
+		roomStatistics()
+			.then(res => {
+				setData(res.data)
+				let total = 0
+				for (const d of res.data.data) {
+					total += d.count
+				}
+				setDataTotal({
+					totalCheckin: total
+				})
+
+			})
 	}, [])
+
 	const renderFaculty = () => {
 		if (!data)
 			return
 
+
 		return (
 			data.data
 				// .sort((a, b) => a.faculty_id - b.faculty_id)
-				.map(d => {
+				.map((d, index) => {
 					return (
 						<tr>
-							<th>{d.role}</th>
+							<th>{index + 1}</th>
 							<td>{d.faculty_name}</td>
+							<td>{d.room_name}</td>
 							<td>{d.count}</td>
-							<td>
-								<Link to={"/users/group/" + d.role} className="mr-3">
-									<FontAwesomeIcon icon={faUsers} color='black' title="QR Code" />
-								</Link>
-							</td>
 						</tr>
 					)
-				})
+				}
+				)
 		)
 	}
 
@@ -45,13 +56,15 @@ function index() {
 		<>
 
 			<div className='container-fluid'>
-				<div className='row mt-2'>
+			<h3 className="text-center mt-3"> สถิติการใช้งาน</h3>
+
+				{/* <div className='row mt-2'>
 					<div className='col-9 mx-auto text-right'>
-						<Link to={'/users/adduser'}>
-							<button className='btn btn-primary'>เพิ่มผู้ดูแล</button>
+						<Link to={'/groups/addgroup'}>
+							<button className='btn btn-primary'>เพิ่มหน่วยงาน</button>
 						</Link>
 					</div>
-				</div>
+				</div> */}
 
 
 				{
@@ -77,19 +90,25 @@ function index() {
 					)
 				}
 
+
+
 				<div className='row mt-2'>
 					<div className='col-9 mx-auto'>
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>#</th>
 									<th>หน่วยงาน</th>
-									<th>จำนวนผู้ดูแล</th>
-									<th>จัดการ</th>
+									<th>จุด SU Check-in</th>
+									<th>จำนวนการ Check-in</th>
 								</tr>
 							</thead>
 							<tbody>
 								{renderFaculty()}
+								<tr className='table-secondary'>
+									<td className='text-center' colSpan={2}>รวม</td>
+									<td>{dataTotal.totalCheckin}</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

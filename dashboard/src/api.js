@@ -99,6 +99,7 @@ export function editRoom(params) {
  * @param {string} params.password
  * @param {string} params.name
  * @param {string} params.role
+ * @param {string} params.noPassword
  * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
  */
  export function createUser(params) {
@@ -115,3 +116,43 @@ export function editRoom(params) {
  export function loginWithSSO(params) {
 	return axios.post(env.API + '/dashboard/login/su', { ...params })
 }
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.groupID
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function getUsersByGroupID(params) {
+	return axios.get(env.API + '/users_by_group?groupID=' + params.groupID)
+}
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.username
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function getUserByUsername(params) {
+	return axios.get(env.API + '/user_by_username?username=' + params.username)
+}
+
+/**
+ * 
+ * @param {object} params
+ * @param {string} params.username
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function deleteUser(params) {
+	return axios.post(env.API + '/delete_user_by_username', { ...params })
+}
+
+
+/**
+ * 
+ * @returns {Promise< import('axios').AxiosResponse<{success: boolean}> >}
+ */
+ export function roomStatistics() {
+	return axios.get(env.API + '/room/statistics')
+}
+
