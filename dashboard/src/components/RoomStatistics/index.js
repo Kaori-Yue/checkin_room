@@ -106,7 +106,7 @@ function index() {
 							<tbody>
 								{renderFaculty()}
 								<tr className='table-secondary'>
-									<td className='text-center' colSpan={2}>รวม</td>
+									<td className='text-center' colSpan={3}>รวม</td>
 									<td>{dataTotal.totalCheckin}</td>
 								</tr>
 							</tbody>
