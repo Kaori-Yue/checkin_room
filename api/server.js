@@ -97,6 +97,9 @@ app.post('/delete_user_by_username', user_controller.deleteUserByUsername)
 app.get('/room/statistics', user_controller.roomStatistics)
 app.get('/room/used', user_controller.getUsedSlotRoom)
 
+app.get('/test/now', user_controller.getNow)
+app.get('/test/timezone', user_controller.getTimeZone)
+
 authenRoute.post('/get_profile', std_controller.get_profile);
 authenRoute.get('/count_room', checkin_controller.count_room);
 authenRoute.post('/rename_student', std_controller.rename_student);

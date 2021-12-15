@@ -118,6 +118,10 @@ function DeleteUser() {
 	}
 
 	const dialogConfirm = () => {
+		if (!state?.username) {
+			// Loading/Fetch
+			return history.replace('/users')
+		}
 		return (
 			<>
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

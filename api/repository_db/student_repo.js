@@ -712,7 +712,7 @@ exports.roomStatistics = function (username) {
  * 
  * @param {number} groupID 
  */
-exports.getUsedSlotRoom = function(groupID) {
+exports.getUsedSlotRoom = function (groupID) {
 	const sql = `select room_table.room_id,
 		room_table.room_name,
 		room_table.capacity,
@@ -724,4 +724,12 @@ exports.getUsedSlotRoom = function(groupID) {
 	where room_table.room_id = ?
 	and transaction.status = 1`
 	return to_query(sql, [groupID])
+}
+
+exports.getNow = function () {
+	return to_query('select now()')
+}
+
+exports.getTimeZone = function () {
+	return to_query('SELECT TIMEDIFF(NOW(), UTC_TIMESTAMP)')
 }
