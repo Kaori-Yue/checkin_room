@@ -15,7 +15,7 @@ const authentication = async function(access_token){
         }
     })
     .catch(err=>{
-        console.log(err.response.status)
+        console.log(err)
         //status = err.response.status
     })
     status = req?.status;

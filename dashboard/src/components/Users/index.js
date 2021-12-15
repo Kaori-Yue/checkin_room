@@ -32,7 +32,7 @@ function index() {
 							<td>{d.count}</td>
 							<td>
 								<Link to={"/users/group/" + d.role} className="mr-3">
-									<FontAwesomeIcon icon={faUsers} color='black' title="QR Code" />
+									<FontAwesomeIcon icon={faUsers} color='black' title="จัดการผู้ใช้" />
 								</Link>
 							</td>
 						</tr>
