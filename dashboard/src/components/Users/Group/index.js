@@ -31,11 +31,12 @@ function index() {
 			data.data
 				// .sort((a, b) => a.faculty_id - b.faculty_id)
 				.map((d, index) => {
+					const time = dayjs.utc(d.created_at)
 					return (
 						<tr>
 							<th>{index + 1}</th>
 							<td>{d.username}</td>
-							<td>{dayjs.utc(d.created_at).local().format('DD-MM-YYYY')}</td>
+							<td title={time.format('HH:mm:ss')}>{time.format('DD-MM-YYYY')}</td>
 							<td>
 								<Link to={{
 									pathname: '/users/delete',
