@@ -120,13 +120,3 @@ exports.getUsedSlotRoom = async (req, res) => {
 		})
 	}
 }
-
-exports.getNow = async(req, res) => {
-	const data = await std_repo.getNow()
-	return res.send(data)
-}
-
-exports.getTimeZone = async(req, res) => {
-	const data = await std_repo.getTimeZone()
-	return res.send(data)
-}
