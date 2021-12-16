@@ -40,7 +40,8 @@ function Room() {
 	// const faculty = useContext(FacultyContext)
 
 	const [room_list, setRoom_list] = useState([]);
-	const [keyword, setKeyword] = useState('');
+	const [keyword, setKeyword] = useState('')
+	const [groupFilter, setGroupFilter] = useState(0)
 	const [cookie, setCookie, removeCookie] = useCookies(['jwt']);
 
 	const { state } = useLocation()
@@ -67,9 +68,12 @@ function Room() {
 		setKeyword(event.target.value);
 	}
 
-	const show_room_list = room_list && room_list.filter(f => f.deleted == false).map(room => {
-		const { room_id, room_name, capacity, faculty_id, deleted } = room
-		if (keyword == '' || room_name.indexOf(keyword) != -1) {
+	const show_room_list = room_list && room_list
+		.filter(room => groupFilter !== 0 ? room.faculty_id === groupFilter : true)
+		.filter(room => room.room_name.includes(keyword))
+		.filter(room => room.deleted == false)
+		.map(room => {
+			const { room_id, room_name, capacity, faculty_id, deleted } = room
 			return (
 				<tr className="">
 					{
@@ -142,8 +146,7 @@ function Room() {
 
 				</tr>
 			)
-		}
-	})
+		})
 
 
 
@@ -165,7 +168,7 @@ function Room() {
 			<h2 style={{ textAlign: "center" }}>จัดการจุด SU check-in</h2>
 			<br />
 
-			<div class="input-group mb-3 col-9 mx-auto">
+			<div class="input-group mb-2 col-9 mx-auto">
 				<input
 					className="form-control text-center"
 					type="text"
@@ -173,8 +176,22 @@ function Room() {
 					value={keyword}
 					onChange={handleKeyword}
 				/>
-
 			</div>
+
+			{
+				admin_role === 0 &&
+				<div class="input-group mb-3 col-9 mx-auto">
+					<select onChange={(f) => setGroupFilter(+f.target.value)} className="custom-select text-center">
+						<option value={0}>ทุกหน่วยงาน</option>
+						{
+							faculty.map(f => {
+								return <option key={f.faculty_id} value={f.faculty_id}>{f.faculty_name}</option>
+							})
+						}
+					</select>
+				</div>
+			}
+
 
 			{
 				state?.addRoom &&
