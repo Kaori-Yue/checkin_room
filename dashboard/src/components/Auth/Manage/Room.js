@@ -96,11 +96,8 @@ function Room() {
 
 									<Link to={{
 										pathname: '/manage_room/view/' + room_id,
-										state: {
-											hideNavbar: true
-										}
 									}} className="mr-3">
-										<FontAwesomeIcon icon={faWindowMaximize} title="Edit" />
+										<FontAwesomeIcon icon={faWindowMaximize} title="Display" />
 									</Link>
 
 									<Link to={"/manage_room/delete/" + room_id} className="mr-3">
@@ -127,6 +124,12 @@ function Room() {
 
 									<Link to={"/manage_room/edit/" + room_id} className="mr-3">
 										<FontAwesomeIcon icon={faEdit} title="Edit" />
+									</Link>
+
+									<Link to={{
+										pathname: '/manage_room/view/' + room_id,
+									}} className="mr-3">
+										<FontAwesomeIcon icon={faWindowMaximize} title="Display" />
 									</Link>
 
 									<Link to={"/manage_room/delete/" + room_id} className="mr-3">
