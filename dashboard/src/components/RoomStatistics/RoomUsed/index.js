@@ -12,7 +12,7 @@ function index() {
 		return roomStats({ roomID: id })
 			.then(res => {
 				setData(res.data)
-				intervalId = setTimeout(async() => {
+				intervalId = setTimeout(async () => {
 					await fetchData()
 				}, 5000);
 			})
@@ -44,7 +44,7 @@ function index() {
 
 			<div className='row mt-5'>
 				<div className='col text-center'>
-					<h3 className='text-danger'>จำนวนคนสูงสุด: {data?.data?.capacity ?? "N/A"}</h3>
+					<h3 className='text-danger'>จำนวนคนสูงสุด (max capacity) : {data?.data?.capacity ?? "N/A"}</h3>
 				</div>
 			</div>
 
@@ -53,11 +53,12 @@ function index() {
 			<div className='row mt-5'>
 				<div className='col text-center'>
 					<h3>ขณะนี้มีผู้ใช้งาน</h3>
+					<h3>(currently checked-in)</h3>
 				</div>
 			</div>
 			<div className='row'>
 				<div className='col text-center'>
-					<h2 style={{fontSize: '25em'}} className='display-1'>{data?.data?.count ?? "N/A"}</h2>
+					<h2 style={{ fontSize: '25em' }} className='display-1'>{data?.data?.count ?? "N/A"}</h2>
 				</div>
 			</div>
 
