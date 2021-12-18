@@ -123,6 +123,7 @@ class infoRoom extends Component {
 
 	}
 
+
 	render() {
 		if (this.state.isLoading)
 			return <Loading custom={{ width: '3rem', height: '3rem' }} />
@@ -130,7 +131,7 @@ class infoRoom extends Component {
 		return (
 			// options={{ onClick:(e, i)=> {console.log('c ',i)} }}
 
-			<div className='col-9 mx-auto' style={{ height: (this.state.totalRoom * 25) + 'px' }}>
+			<div className='col-9 mx-auto' style={{ height: ((this.state.totalRoom * 25 ) > 200) ? this.state.totalRoom * 25 : 200  + 'px' }}>
 				{/* <Bar data={this.state} getElementAtEvent={this.onClickElement} /> */}
 				{/* <Bar options={this.options} data={this.state} /> */}
 				<Bar
