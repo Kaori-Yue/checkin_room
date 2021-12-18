@@ -1,7 +1,17 @@
 /// <reference path="../../../@types/api.d.ts"/>
 
-import React, { Component } from 'react'
-import { Bar, HorizontalBar } from 'react-chartjs-2'
+import React, { Component, createRef } from 'react'
+import { Bar, getElementAtEvent } from 'react-chartjs-2'
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+
+} from 'chart.js';
 import axios from 'axios'
 import env from '../../../../env.json'
 import Loading from '../Loading'
@@ -13,11 +23,20 @@ import jwt from 'jsonwebtoken'
 class infoRoom extends Component {
 	constructor(props) {
 		super(props)
+		ChartJS.register(
+			CategoryScale,
+			LinearScale,
+			BarElement,
+			Title,
+			Tooltip,
+			Legend
+		);
 
 		const { allCookies } = props
+		this.chartRef = createRef()
 		this.state = {
 			isLoading: true,
-			role: jwt.decode(allCookies.jwt)?.role
+			role: jwt.decode(allCookies.jwt)?.role,
 		}
 		this.reload
 
@@ -52,6 +71,7 @@ class infoRoom extends Component {
 			backgroundColor: 'rgba(8, 173, 0, 0.2)',
 			borderColor: 'rgba(8, 173, 0, 1)',
 			borderWidth: 1,
+			// barThickness: 15,
 			hoverBackgroundColor: 'rgba(8, 173, 0, 0.4)',
 			hoverBorderColor: 'rgba(8, 173, 0, 1)',
 			data: [],
@@ -63,6 +83,7 @@ class infoRoom extends Component {
 			backgroundColor: 'rgba(78, 242, 229, 0.2)',
 			borderColor: 'rgba(78, 242, 229, 1)',
 			borderWidth: 1,
+			// barThickness: 15,
 			hoverBackgroundColor: 'rgba(78, 242, 229, 0.4)',
 			hoverBorderColor: 'rgba(78, 242, 229, 1)',
 			data: [],
@@ -82,7 +103,9 @@ class infoRoom extends Component {
 		this.setState({
 			labels,
 			datasets,
-			isLoading: false
+			isLoading: false,
+			totalRoom: dataRoom.data.length
+			// RoomsData: dataRoom.data
 		})
 		this.reload = setTimeout(this.update.bind(this), env.TIME_REFRESH)
 	}
@@ -91,14 +114,13 @@ class infoRoom extends Component {
 		if (_e.length < 1)
 			return
 		const e = _e[0]
-		const index = e._index
-		const datasetIndex = e._datasetIndex
-		const datasets = e._chart.config.data.datasets
-
+		const { datasetIndex, index } = _e[0];
+		const datasets = this.chartRef.current.config.data.datasets
 		const selectDatasets = datasets[datasetIndex]
 		const roomIds = selectDatasets.roomIds
 		const roomId = roomIds[index]
 		this.props.history.push('table?room_id=' + roomId)
+
 	}
 
 	render() {
@@ -107,9 +129,38 @@ class infoRoom extends Component {
 
 		return (
 			// options={{ onClick:(e, i)=> {console.log('c ',i)} }}
-			// <div className="col">
-				<HorizontalBar  data={this.state} getElementAtEvent={this.onClickElement} />
-			// {/* </div> */}
+
+			<div className='col-9 mx-auto' style={{ height: (this.state.totalRoom * 25) + 'px' }}>
+				{/* <Bar data={this.state} getElementAtEvent={this.onClickElement} /> */}
+				{/* <Bar options={this.options} data={this.state} /> */}
+				<Bar
+					ref={this.chartRef}
+					options={{
+
+						responsive: true,
+						indexAxis: 'y',
+						maintainAspectRatio: false,
+
+						// plugins: {
+						// 	title: {
+						// 		display: true,
+						// 		text: 'สถานะการใช้งานปัจจุบัน',
+						// 	},
+						// },
+
+					}}
+					data={this.state}
+					onClick={(e) => {
+						// const dataset = getDatasetAtEvent(this.chartRef.current, e);
+						const element = getElementAtEvent(this.chartRef.current, e);
+						// const elements = getElementsAtEvent(this.chartRef.current, e);
+						//
+						this.onClickElement(element)
+					}}
+				/>
+
+				{/* <ChartJS ></ChartJS> */}
+			</div>
 		)
 	}
 }

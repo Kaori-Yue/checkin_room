@@ -23,7 +23,7 @@ function Home(prop) {
 
     // Auth Success
     return (
-        <div className="container" style={{
+        <div className="container-fluid" style={{
             padding: "30px",
             color: "gray",
             textAlign: "center",
@@ -32,9 +32,7 @@ function Home(prop) {
             <h2>ยินดีต้อนรับเข้าสู่ระบบ SU check-in</h2>
             <h4>ท่านเข้าสู่ระบบเรียบร้อยแล้ว</h4>
             <div className="row">
-                <div className="col">
                     <InfoRoom />
-                </div>
             </div>
 
         </div>
